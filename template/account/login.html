@@ -1,19 +1,20 @@
 {% load static %}
+{% load socialaccount %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In</title>
-    <link href="{% static "style/accounts/style.css" %}" rel="stylesheet">
+    <link href="{% static 'style/accounts/style.css' %}" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <img src="android-chrome-192x192.png" alt="Favicon Icon" style="width: 50px; height: 50px;">
+        <img src="{% static 'images/android-chrome-192x192.png' %}" alt="Favicon Icon" style="width: 50px; height: 50px;">
 
-        <h1> Welcome to  Make Your Career</h1>
+        <h1>Welcome to Make Your Career</h1>
         <h2>Sign In</h2>
-        <form class="sign-in-form" action="#" method="POST">
+        <form class="sign-in-form" action="{% url 'login' %}" method="POST">
             {% csrf_token %}
             <div class="input-group">
                 <label for="email">Email</label>
@@ -28,17 +29,17 @@
         <div class="divider">
             <p>or</p>
         </div>
-        <button class="btn google-btn">
-            <img src="google logo.jpeg" alt="Google Logo">
+        <a href="{% provider_login_url 'google' %}" class="btn google-btn">
+            <img src="{% static 'images/google-logo.jpeg' %}" alt="Google Logo">
             Sign in with Google
-        </button>
+        </a>
         <p class="terms-text">
             By continuing, you agree to Make Your Career's 
-            <span class="heavy-text">Terms of services</span>. 
-            <span class="heavy-text">Privacy Policy</span>
+            <span class="heavy-text">Terms of Services</span> and 
+            <span class="heavy-text">Privacy Policy</span>.
         </p>
         <hr class="divider-line">
-        <p>Don't have an account? <a href="sign-up.html">Sign Up</a></p>
+        <p>Don't have an account? <a href="{% url 'signup' %}">Sign Up</a></p>
     </div>
 </body>
 </html>

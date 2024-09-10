@@ -19,5 +19,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('allauth.urls')),  # For Google sign-in and other allauth functionalities
+    path('auth/', include('accounts.urls')),      # For your custom sign-in, sign-up, logout views
     path('', include('myapp.urls')),  
 ]

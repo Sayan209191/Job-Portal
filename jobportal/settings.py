@@ -49,8 +49,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'myapp'
-    'accounts'
+    'django.contrib.sites',   
+    'myapp',   
+    'accounts',
     'allauth',   
     'allauth.account',  
     'allauth.socialaccount',
@@ -65,6 +66,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 # Session settings
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
@@ -134,10 +136,10 @@ AUTHENTICATION_BACKENDS = (
 )
 
 
-SITE_ID = 1
+SITE_ID = 2
 LOGIN_REDIRECT_URL = '/'
-
-
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+ACCOUNT_EMAIL_VERIFICATION = "none"
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
