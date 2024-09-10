@@ -24,6 +24,7 @@ body {
 }
 
 h2 {
+    margin-top: 20px;
     margin-bottom: 20px;
     color: #333;
 }
@@ -95,4 +96,49 @@ a {
 
 a:hover {
     text-decoration: underline;
+}
+.google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    color: #555;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.google-btn img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.google-btn:hover {
+    background-color: #f8f8f8;
+}
+
+.divider {
+    margin-top: 5px;
+    text-align: center;
+    margin: 20px 0;
+}
+/* Style for the "By continuing" light text and bold terms */
+.terms-text {
+    margin-top: 10px;
+    color: #555; 
+    font-size: 14px;
+}
+
+.heavy-text {
+    color: #000; /* Heavy black color */
+    font-weight: bold;
+}
+
+/* Divider line style */
+.divider-line {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 20px 0;
 }

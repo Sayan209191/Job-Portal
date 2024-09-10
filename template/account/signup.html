@@ -9,6 +9,9 @@
 </head>
 <body>
     <div class="container">
+        <img src="android-chrome-192x192.png" alt="Favicon Icon" style="width: 50px; height: 50px;">
+
+        <h1> Welcome to  Make Your Career</h1>
         <h2>Sign Up</h2>
         <form class="sign-up-form" action="#" method="POST">
             {% csrf_token %}
@@ -29,8 +32,18 @@
         <div class="divider">
             <p>or</p>
         </div>
-        <button class="btn google-btn">Sign up with Google</button>
-        <p>Already have an account? <a href="#">Sign In</a></p>
+        <button class="btn google-btn">
+            <img src="google logo.jpeg" alt="Google Logo">
+            Sign up with Google
+        </button>
+        <p class="terms-text">
+            By continuing, you agree to Make Your Career's 
+            <span class="heavy-text">Terms of services</span>. 
+            <span class="heavy-text">Privacy Policy</span>
+        </p>
+        <hr class="divider-line">
+        <p>Already have an account? <a href="sign-in.html">Sign In</a></p>
+        
     </div>
 </body>
 </html>
