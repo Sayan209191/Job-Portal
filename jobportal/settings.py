@@ -50,6 +50,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myapp'
+    'accounts'
+    'allauth',   
+    'allauth.account',  
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -97,7 +102,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'jobportal',
         'USER' : 'root',
-        'PASSWORD' : 'Sayan@1234@',
+        'PASSWORD' : 'Sayan@1234',
         'HOST' : '127.0.0.1',
         'PORT' : '3306',
     }
@@ -123,6 +128,30 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+
+SITE_ID = 1
+LOGIN_REDIRECT_URL = '/'
+
+
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
@@ -144,6 +173,11 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")    
 ]
 STATIC_ROOT = os.path.join(BASE_DIR,'/static/')
+
+# media file configuration
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
