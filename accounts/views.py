@@ -1,8 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate,login,logout
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_decode,urlsafe_base64_encode
+from django.utils.encoding import force_bytes,force_str,DjangoUnicodeDecodeError
+from django.core.mail import EmailMessage
+from django.conf import settings
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.views.generic import View
 
 # sign up 
 def signup(request):
@@ -37,7 +46,15 @@ def handlelogin(request):
     if request.method == "POST":
         username = request.POST['email']
         password = request.POST['password']
+        
+        # Debugging: Print the username and password to check the input
+        print(f"Attempting login with email: {username} and password: {password}")
+        
+        # Authenticate user with the given username and password
         user = authenticate(username=username, password=password)
+
+        # Debugging: Print user object to check if authentication is successful
+        print(f"Authenticated user: {user}")
 
         if user is not None:
             login(request, user)
@@ -45,13 +62,94 @@ def handlelogin(request):
             return redirect('/')  # Redirect to the homepage or dashboard
         else:
             messages.error(request, "Invalid Credentials")
-            return redirect('/login')
+            return redirect('/auth/login')
 
-    return render(request, 'account/login.html')  
+    return render(request, 'account/login.html')
+
 
 
 # logout
 def handlelogout(request):
     logout(request)
     messages.info(request, "Logout Successful")
-    return redirect('/login')
+    return redirect('/auth/login')
+
+
+class RequestResetEmailView(View):
+    def get(self,request):
+        return render(request,'account/request-reset-email.html')
+    
+    def post(self,request):
+        email=request.POST['email']
+        user=User.objects.filter(email=email)
+
+        if user.exists():
+            # current_site=get_current_site(request)
+            email_subject='[Reset Your Password]'
+            message=render_to_string('account/reset-user-password.html',{
+                'domain':'127.0.0.1:8000',
+                'uid':urlsafe_base64_encode(force_bytes(user[0].pk)),
+                'token':PasswordResetTokenGenerator().make_token(user[0])
+            })
+
+            email_message=EmailMessage(email_subject,message,settings.EMAIL_HOST_USER,[email])
+            email_message.send()
+
+            # messages.info(request,f"WE HAVE SENT YOU AN EMAIL WITH INSTRUCTIONS ON HOW TO RESET THE PASSWORD {message} " )
+            return render(request,'account/request-reset-email.html')
+        else:
+            messages.error(request, "No user exists with the provided email.")
+            return render(request,'account/request-reset-email.html')
+
+class SetNewPasswordView(View):
+    def get(self,request,uidb64,token):
+        context = {
+            'uidb64':uidb64,
+            'token':token
+        }
+        try:
+            user_id=force_str(urlsafe_base64_decode(uidb64))
+            user=User.objects.get(pk=user_id)
+
+            if  not PasswordResetTokenGenerator().check_token(user,token):
+                messages.warning(request,"Password Reset Link is Invalid")
+                return render(request,'account/request-reset-email.html')
+
+        except DjangoUnicodeDecodeError as identifier:
+            messages.error(request,"Invalid link.")
+            return render(request,'account/request-reset-email.html')
+
+        return render(request,'account/set-new-password.html',context)
+
+    def post(self, request, uidb64, token):
+        context = {
+            'uidb64': uidb64,
+            'token': token
+        }
+        password = request.POST['pass1']
+        confirm_password = request.POST['pass2']
+        
+        if password != confirm_password:
+            messages.warning(request, "Passwords do not match")
+            return render(request, 'account/set-new-password.html', context)
+
+        try:
+            user_id = force_str(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(pk=user_id)
+
+            # Set new password and save
+            user.set_password(password)
+            user.save()
+
+            messages.success(request, "Password reset successful. Please login with your new password.")
+            return redirect('/auth/login')
+
+        except User.DoesNotExist:
+            messages.error(request, "Invalid user.")
+            return render(request, 'account/set-new-password.html', context)
+
+        except DjangoUnicodeDecodeError:
+            messages.error(request, "Something went wrong. Please try again.")
+            return render(request, 'account/set-new-password.html', context)
+
+

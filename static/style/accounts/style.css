@@ -19,7 +19,7 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 350px;
+    width: 370px;
     text-align: center;
 }
 
@@ -110,9 +110,16 @@ a:hover {
 }
 
 .google-btn img {
-    width: 20px;
-    height: 20px;
+    width: 27px;
+    height: 27px;
     margin-right: 10px;
+    border-radius: 50%;
+}
+
+.com-logo {
+    width: 65px; 
+    height: 40px;
+    border-radius: 50%;
 }
 
 .google-btn:hover {
@@ -141,4 +148,17 @@ a:hover {
     border: none;
     border-top: 1px solid #ddd;
     margin: 20px 0;
+}
+
+.forgot-password {
+    text-align: right;
+    margin-bottom: 15px;
+}
+.forgot-password a {
+    color: #007BFF;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+.forgot-password a:hover {
+    text-decoration: underline;
 }

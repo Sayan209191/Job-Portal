@@ -11,9 +11,9 @@
 <body>
     <div class="container">
         <!-- Referencing static images -->
-        <img src="{% static 'account/android-chrome-192x192.png' %}" alt="Favicon Icon" style="width: 50px; height: 50px;">
+        <img src="{% static 'images/logo.jpg' %}" alt="Favicon Icon" class="com-logo">
 
-        <h1>Welcome to Make Your Career</h1>
+        <h2>Welcome to Make Your Career</h2>
         <h2>Sign Up</h2>
 
         <form class="sign-up-form" action="{% url 'signup' %}" method="POST">
@@ -43,7 +43,7 @@
 
         <!-- Google sign-in button -->
         <button class="btn google-btn">
-            <img src="{% static 'account/google-logo.jpeg' %}" alt="Google Logo">
+            <img src="{% static 'images/google-logo.webp' %}" alt="Google Logo">
             <a href="{% provider_login_url 'google' %}" class="google-signup">Sign up with Google</a>
         </button>
 
