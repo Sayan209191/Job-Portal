@@ -12,6 +12,7 @@ from django.core.mail import EmailMessage
 from django.conf import settings
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.views.generic import View
+from .forms import UserProfileForm
 
 # sign up 
 def signup(request):
@@ -152,4 +153,17 @@ class SetNewPasswordView(View):
             messages.error(request, "Something went wrong. Please try again.")
             return render(request, 'account/set-new-password.html', context)
 
+@login_required
+def edit_profile(request):
+    user_profile = request.user.userprofile
 
+    if request.method == "POST":
+        form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your profile has been updated successfully.")
+            return redirect('edit_profile')
+    else:
+        form = UserProfileForm(instance=user_profile)
+
+    return render(request, 'account/edit_profile.html', {'form': form})

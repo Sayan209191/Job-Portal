@@ -4,4 +4,4 @@ from django.http import HttpResponse
 # Create your views here.
 
 def index(request) :
-    return HttpResponse("Set up readyYes")
+    return render(request, 'home/index.html')

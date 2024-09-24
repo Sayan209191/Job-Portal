@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',   
     'myapp',   
     'accounts',
+    'jobs',
     'allauth',   
     'allauth.account',  
     'allauth.socialaccount',
@@ -141,6 +142,8 @@ LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 ACCOUNT_EMAIL_VERIFICATION = "none"
 
+SOCIALACCOUNT_LOGIN_ON_GET = True
+
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'SCOPE': [
@@ -149,7 +152,9 @@ SOCIALACCOUNT_PROVIDERS = {
         ],
         'AUTH_PARAMS': {
             'access_type': 'online',
-        }
+        },
+        'OAUTH_PKCE_ENABLED': True,
+
     }
 }
 
