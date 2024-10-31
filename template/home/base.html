@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link href="{% static 'style/home/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
@@ -16,32 +17,59 @@
         </div>
         <nav>
             <ul>
-                <li><a href="#">Jobs</a></li>
-                <li><a href="#">Internships</a></li>
-
+                <li>
+                    <a href="#">Jobs</a>
+                    <div class="dropdown-content">
+                        <a href="#">Full-time</a>
+                        <a href="#">Part-time</a>
+                        <a href="#">Freelance</a>
+                        <a href="#">Remote</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">Internships</a>
+                    <div class="dropdown-content">
+                        <a href="#">Engineering</a>
+                        <a href="#">Marketing</a>
+                        <a href="#">Design</a>
+                        <a href="#">Finance</a>
+                    </div>
+                </li>
             </ul>
         </nav>
         <div class="search-bar">
             <input type="text" placeholder="Search jobs & internships">
             <button>Search</button>
         </div>
+        <!-- Conditional rendering based on user authentication status -->
+        {% if user.is_authenticated %}
+        <!-- When user is logged in, show profile options -->
+        <div class="profile-dropdown">
+            <button class="profile-button" id="profile-button">
+                <i class="fas fa-user"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="{% url 'profile_view' %}">View Profile</a>
+                <a href="#">Settings</a>
+                <a href="auth/logout/">Logout</a>
+            </div>
+        </div>
+        {% else %}
+        <!-- When user is not logged in, show login and register buttons -->
         <div class="login-register">
-            <!-- Login Button -->
-            <a href="/auth/login" class="btn-link">
+            <a href="auth/login" class="btn-link">
                 <button type="button" class="login btn-login">
                     Login
                 </button>
             </a>
-
-            <!-- Register Button -->
-            <a href="/auth/signup" class="btn-link">
+            <a href="auth/signup" class="btn-link">
                 <button type="button" class="register btn-register">
                     Register
                 </button>
             </a>
-
-
         </div>
+        {% endif %}
+
     </header>
 
     {% block body %}

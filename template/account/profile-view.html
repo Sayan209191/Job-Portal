@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+</head>
+<body>
+    <div class="profile-container">
+        <h1>{{ user_profile.name }}'s Profile</h1>
+        <div class="profile-details">
+            <p><strong>Address:</strong> {{ user_profile.address }}</p>
+            <p><strong>Mobile:</strong> {{ user_profile.mobile_number }}</p>
+            <p><strong>Skills:</strong> {{ user_profile.skills }}</p>
+
+            {% if user_profile.profile_picture %}
+                <img src="{{ user_profile.profile_picture.url }}" alt="Profile Picture">
+            {% endif %}
+
+            {% if user_profile.resume %}
+                <p><a href="{{ user_profile.resume.url }}" target="_blank">View Resume</a></p>
+            {% endif %}
+        </div>
+        <a href="{% url 'profile_edit' %}" class="btn">Edit Profile</a>
+    </div>
+</body>
+</html>

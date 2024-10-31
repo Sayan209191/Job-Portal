@@ -27,6 +27,7 @@ class Job(models.Model):
     description = models.TextField()
     location = models.CharField(max_length=255)
     date_posted = models.DateTimeField(auto_now_add=True)
+    experience_required = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
         return self.title

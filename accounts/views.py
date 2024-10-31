@@ -13,6 +13,8 @@ from django.conf import settings
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.views.generic import View
 from .forms import UserProfileForm
+from .models import UserProfile
+
 
 # sign up 
 def signup(request):
@@ -73,7 +75,7 @@ def handlelogin(request):
 def handlelogout(request):
     logout(request)
     messages.info(request, "Logout Successful")
-    return redirect('/auth/login')
+    return redirect('/')
 
 
 class RequestResetEmailView(View):
@@ -153,17 +155,22 @@ class SetNewPasswordView(View):
             messages.error(request, "Something went wrong. Please try again.")
             return render(request, 'account/set-new-password.html', context)
 
+# View Profile
 @login_required
-def edit_profile(request):
-    user_profile = request.user.userprofile
+def profile_view(request):
+    user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+    return render(request, 'account/profile-view.html', {'user_profile': user_profile})
 
-    if request.method == "POST":
+# Edit Profile
+@login_required
+def profile_edit(request):
+    user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+    if request.method == 'POST':
         form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
         if form.is_valid():
             form.save()
-            messages.success(request, "Your profile has been updated successfully.")
-            return redirect('edit_profile')
+            return redirect('profile_view')
     else:
         form = UserProfileForm(instance=user_profile)
 
-    return render(request, 'account/edit_profile.html', {'form': form})
+    return render(request, 'account/edit-profile.html', {'form': form})
