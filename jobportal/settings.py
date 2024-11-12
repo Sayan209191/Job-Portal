@@ -106,9 +106,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'jobportal',
-        'USER' : 'root',
+        'USER' : 'testuser',
         'PASSWORD' : 'Sayan@1234',
-        'HOST' : '127.0.0.1',
+        'HOST' : '192.168.1.35',
         'PORT' : '3306',
     }
 }
