@@ -32,7 +32,6 @@
                         <a href="#">Engineering</a>
                         <a href="#">Marketing</a>
                         <a href="#">Design</a>
-                        <a href="#">Finance</a>
                     </div>
                 </li>
             </ul>
@@ -41,7 +40,6 @@
             <input type="text" placeholder="Search jobs & internships">
             <button>Search</button>
         </div>
-        <!-- Conditional rendering based on user authentication status -->
         {% if user.is_authenticated %}
         <!-- When user is logged in, show profile options -->
         <div class="profile-dropdown">
@@ -78,8 +76,8 @@
         <div class="footer-container">
             <div class="footer-links">
                 <ul>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="/aboutus">About Us</a></li>
+                    <li><a href="/contact-us">Contact Us</a></li>
                     <li><a href="#">Terms of Service</a></li>
                     <li><a href="#">Privacy Policy</a></li>
                 </ul>
@@ -89,7 +87,7 @@
                     <li><a href="https://www.facebook.com/profile.php?id=61568343851533" target="_blank"><img src="{% static 'images/facebook.png' %}" alt="Facebook"></a>
                     </li>
                     <li><a href="https://x.com/makeyourcareer7" target="_blank"><img src="{% static 'images/x.png' %}" alt="Twitter"></a></li>
-                    <li><a href="#" target="_blank"><img src="{% static 'images/insta.png' %}" alt="Instagram"></a></li>
+                    <li><a href="" target="_blank"><img src="{% static 'images/insta.png' %}" alt="Instagram"></a></li>
                     <li><a href="https://www.linkedin.com/in/make-your-career-7b1750274/" target="_blank"><img src="{% static 'images/linkdin.png' %}" alt="LinkedIn"></a>
                     </li>
                 </ul>
