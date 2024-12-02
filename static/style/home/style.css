@@ -290,4 +290,155 @@ nav ul li:hover .dropdown-content {
 }
 
 
-/* jobs data css
+/* jobs data css */
+
+:root {
+    --primary-color: #007bff;
+    --primary-hover: #0056b3;
+    --secondary-color: #28a745;
+    --secondary-hover: #218838;
+    --secondary-active: #1e7e34;
+    --background-color: #f4f6f8;
+    --card-background: #ffffff;
+    --card-border: #e0e0e0;
+    --text-color: #2c3e50;
+    --text-muted: #777;
+    --box-shadow: rgba(0, 0, 0, 0.1);
+    --box-shadow-hover: rgba(0, 0, 0, 0.2);
+}
+
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    width: 90%;
+    margin-top: 30px ;
+    margin-left: 100px;
+}
+
+.grid-item {
+    background: var(--card-background);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px var(--box-shadow);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.grid-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px var(--box-shadow-hover);
+}
+
+.job-card {
+    text-align: center;
+    width: 100%;
+}
+
+.job-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--text-color);
+    margin-bottom: 8px;
+    transition: color 0.3s ease;
+}
+
+.job-title:hover {
+    color: var(--secondary-color);
+}
+
+.company-name {
+    font-size: 14px;
+    color: var(--primary-color);
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.company-name:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
+
+.skill {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.pagination-container {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.pagination-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.pagination-button:hover {
+    background-color: var(--primary-hover);
+}
+
+.pagination-button.active {
+    background-color: var(--primary-hover);
+    cursor: default;
+}
+
+.pagination-button-prev,
+.pagination-button-next {
+    background-color: #6c757d;
+}
+
+.pagination-button-prev:hover,
+.pagination-button-next:hover {
+    background-color: #5a6268;
+}
+
+.apply-button {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.apply-button:hover {
+    background-color: var(--secondary-hover);
+    transform: scale(1.05);
+}
+
+.apply-button:active {
+    background-color: var(--secondary-active);
+    transform: scale(0.95);
+}
+
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+}
