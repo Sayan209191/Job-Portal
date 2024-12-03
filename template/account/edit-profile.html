@@ -8,13 +8,64 @@
     <link rel="stylesheet" href="{% static 'style/accounts/profile.css' %}">
 </head>
 <body>
-    <div class="profile-edit-container">
-        <h1>Edit Profile</h1>
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn">Save Changes</button>
-        </form>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <ul>
+                <li><a href="/auth/profile">Profile</a></li>
+                <li><a href="#" class="active">Edit Profile</a></li>
+                <li><a href="#">Notifications</a></li>
+            </ul>
+        </div>
+
+        <!-- Edit Profile Form -->
+        <div class="content">
+            <h1>Edit Profile</h1>
+            <form method="post" enctype="multipart/form-data" class="profile-form">
+                {% csrf_token %}
+                <!-- Name Field -->
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" value="{{ form.name.value }}" required>
+                    <small class="error">{{ form.name.errors }}</small>
+                </div>
+                <!-- Address Field -->
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" name="address" value="{{ form.address.value }}">
+                    <small class="error">{{ form.address.errors }}</small>
+                </div>
+                <!-- Skills Field -->
+                <div class="form-group">
+                    <label for="skills">Skills:</label>
+                    <input type="text" id="skills" name="skills" value="{{ form.skills.value }}">
+                    <small class="error">{{ form.skills.errors }}</small>
+                </div>
+                <!-- Mobile Number Field -->
+                <div class="form-group">
+                    <label for="mobile_number">Mobile Number:</label>
+                    <input type="text" id="mobile_number" name="mobile_number" value="{{ form.mobile_number.value }}">
+                    <small class="error">{{ form.mobile_number.errors }}</small>
+                </div>
+                <!-- Resume Upload -->
+                <div class="form-group">
+                    <label for="resume">Resume (PDF):</label>
+                    <input type="file" id="resume" name="resume">
+                    <small class="error">{{ form.resume.errors }}</small>
+                </div>
+                <!-- Profile Picture Upload -->
+                <div class="form-group">
+                    <label for="profile_picture">Profile Picture:</label>
+                    <input type="file" id="profile_picture" name="profile_picture">
+                    <small class="error">{{ form.profile_picture.errors }}</small>
+                </div>
+                <!-- Form Buttons -->
+                <div class="form-buttons">
+                    <button type="submit" class="btn save-btn">Save Changes</button>
+                    <a href="/" class="btn cancel-btn">Cancel</a>
+                </div>
+            </form>
+        </div>
     </div>
 </body>
 </html>

@@ -2,106 +2,37 @@
 {% block body %}
 
 
-  <div class="grid-container">
-    <!-- Add a data-page attribute to each job card for pagination control -->
-    <div class="grid-item" data-page="1">
-      <div class="job-card">
-        <h2 class="job-title">Telesales Associate</h2>
-        <p class="company-name">Aristostech India Pvt Ltd</p>
-        <p class="skill">Java Python Javascript</p>
-        <button class="apply-button">Apply</button>
-      </div>
-    </div>
-    <div class="grid-item" data-page="1">
-      <div class="job-card">
-        <h2 class="job-title">Sales Manager</h2>
-        <p class="company-name">TechCorp Pvt Ltd</p>
-        <p class="skill">Sales Marketing CRM</p>
-        <button class="apply-button">Apply</button>
-      </div>
-    </div>
-    <div class="grid-item" data-page="1">
-      <div class="job-card">
-        <h2 class="job-title">Software Developer</h2>
-        <p class="company-name">CodeBase Solutions</p>
-        <p class="skill">JavaScript HTML CSS</p>
-        <button class="apply-button">Apply</button>
-      </div>
-    </div>
-    <div class="grid-item" data-page="1">
-      <div class="job-card">
-        <h2 class="job-title">HR Specialist</h2>
-        <p class="company-name">PeopleFirst Ltd</p>
-        <p class="skill">Recruitment Training Payroll</p>
-        <button class="apply-button">Apply</button>
-      </div>
-    </div>
-    <div class="grid-item" data-page="2">
-      <div class="job-card">
-        <h2 class="job-title">Graphic Designer</h2>
-        <p class="company-name">CreativeHub Studio</p>
-        <p class="skill">Photoshop Illustrator Figma</p>
-        <button class="apply-button">Apply</button>
-      </div>
-    </div>
-    <div class="grid-item" data-page="2">
-      <div class="job-card">
-        <h2 class="job-title">Data Analyst</h2>
-        <p class="company-name">DataSphere Pvt Ltd</p>
-        <p class="skill">SQL Excel Python</p>
-        <button class="apply-button">Apply</button>
-      </div>
-    </div>
-    <div class="grid-item" data-page="2">
-      <div class="job-card">
-        <h2 class="job-title">Digital Marketer</h2>
-        <p class="company-name">AdPro Agency</p>
-        <p class="skill">SEO SEM Content Marketing</p>
-        <button class="apply-button">Apply</button>
-      </div>
-    </div>
-    <div class="grid-item" data-page="2">
-      <div class="job-card">
-        <h2 class="job-title">Project Manager</h2>
-        <p class="company-name">BuildIt Ltd</p>
-        <p class="skill">Leadership Agile Planning</p>
-        <button class="apply-button">Apply</button>
-      </div>
-    </div>
-    <div class="grid-item" data-page="3">
-      <div class="job-card">
-        <h2 class="job-title">Customer Support</h2>
-        <p class="company-name">HelpDesk Pvt Ltd</p>
-        <p class="skill">Communication CRM Problem Solving</p>
-        <button class="apply-button">Apply</button>
-      </div>
-    </div>
-    <div class="grid-item" data-page="3">
-      <div class="job-card">
-        <h2 class="job-title">AI Engineer</h2>
-        <p class="company-name">InnovAI Technologies</p>
-        <p class="skill">Python Machine Learning AI</p>
-        <button class="apply-button">Apply</button>
-      </div>
-    </div>
-    <div class="grid-item" data-page="3">
-      <div class="job-card">
-        <h2 class="job-title">Backend Developer</h2>
-        <p class="company-name">CodeCrafters Pvt Ltd</p>
-        <p class="skill">Node.js MongoDB APIs</p>
-        <button class="apply-button">Apply</button>
-      </div>
-    </div>
-    <div class="grid-item" data-page="3">
-      <div class="job-card">
-        <h2 class="job-title">Business Analyst</h2>
-        <p class="company-name">BizAnalytiq Solutions</p>
-        <p class="skill">Excel Power BI SQL</p>
-        <button class="apply-button">Apply</button>
-      </div>
+<div class="grid-container">
+  {% for job in page_obj %}
+  <div class="grid-item">
+    <div class="job-card">
+      <h2 class="job-title">{{ job.title }}</h2>
+      <p class="company-name">{{ job.company }}</p>
+      <p class="skill">{{ job.skills }}</p>
+      <button class="apply-button">Apply</button>
     </div>
   </div>
+  {% endfor %}
+</div>
 
-  <!-- Pagination Navigation -->
-  <div class="pagination-container" id="pagination-container"></div>
+<!-- Pagination Controls -->
+<div class="pagination-container">
+  {% if page_obj.has_previous %}
+  <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+  {% endif %}
+
+  {% for page in page_obj.paginator.page_range %}
+  {% if page == page_obj.number %}
+  <span class="current">{{ page }}</span>
+  {% else %}
+  <a href="?page={{ page }}">{{ page }}</a>
+  {% endif %}
+  {% endfor %}
+
+  {% if page_obj.has_next %}
+  <a href="?page={{ page_obj.next_page_number }}">Next</a>
+  {% endif %}
+</div>
+
+
 {% endblock body %}
