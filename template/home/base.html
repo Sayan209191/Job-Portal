@@ -37,9 +37,17 @@
             </ul>
         </nav>
         <div class="search-bar">
-            <input type="text" placeholder="Search jobs & internships">
-            <button>Search</button>
+            <form method="get" action="{% url 'index' %}">
+                <input 
+                    type="text" 
+                    name="q" 
+                    placeholder="Search jobs & internships" 
+                    value="{{ query|default:'' }}">
+                <button type="submit">Search</button>
+            </form>
         </div>
+        
+        
         {% if user.is_authenticated %}
         <!-- When user is logged in, show profile options -->
         <div class="profile-dropdown">
