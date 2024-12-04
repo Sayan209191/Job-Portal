@@ -15,13 +15,21 @@
                 <li><a href="#" class="active">Profile</a></li>
                 <li><a href="{% url 'profile_edit' %}">Edit Profile</a></li>
                 <li><a href="#">Notification</a></li>
-                
             </ul>
         </div>
 
-        <!-- Profile Content -->
+        <!-- Profile Picture in Top-Right Corner -->
+        <div class="profile-picture-container">
+            {% if user_profile.profile_picture %}
+            <img src="{{ user_profile.profile_picture.url }}" alt="{{ user_profile.name }}'s Profile Picture">
+            {% else %}
+            <img src="{% static 'images/default-profile.png' %}" alt="Default Profile Picture">
+            {% endif %}
+            <a href="{% url 'profile_edit' %}">Change Picture</a>
+        </div>
+
+        <!-- Profile Details -->
         <div class="content">
-            <h1>{{ user_profile.name }}'s Profile</h1>
             <form class="profile-form">
                 <div class="form-group">
                     <label for="address">Address:</label>
@@ -35,12 +43,6 @@
                     <label for="skills">Skills:</label>
                     <input type="text" id="skills" value="{{ user_profile.skills }}" disabled>
                 </div>
-                {% if user_profile.profile_picture %}
-                <div class="form-group profile-picture">
-                    <label>Profile Picture:</label>
-                    <img src="{{ user_profile.profile_picture.url }}" alt="{{ user_profile.name }}'s Profile Picture">
-                </div>
-                {% endif %}
                 {% if user_profile.resume %}
                 <div class="form-group">
                     <label>Resume:</label>

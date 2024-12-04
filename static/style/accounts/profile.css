@@ -1,4 +1,3 @@
-/* General Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -19,6 +18,7 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    position: relative;
 }
 
 /* Sidebar */
@@ -55,46 +55,41 @@ body {
     color: white;
 }
 
+/* Profile Picture in Top-Right Corner */
+.profile-picture-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    text-align: center;
+}
+
+.profile-picture-container img {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border: 2px solid #ddd;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.profile-picture-container a {
+    display: block;
+    margin-top: 5px;
+    font-size: 12px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.profile-picture-container a:hover {
+    text-decoration: underline;
+}
+
 /* Content Area */
 .content {
     flex-grow: 1;
     padding: 30px 40px;
 }
 
-.content h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #333;
-}
-
-/* Profile Page Styling */
-.profile-details {
-    margin-bottom: 30px;
-    color: #555;
-    line-height: 1.6;
-}
-
-.profile-details p {
-    margin-bottom: 15px;
-}
-
-.profile-details strong {
-    color: #333;
-}
-
-/* Profile Picture */
-.profile-picture {
-    margin-top: 20px;
-}
-
-.profile-picture img {
-    max-width: 150px;
-    border-radius: 50%;
-    border: 3px solid #ddd;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Form Styling (for Edit Profile) */
 .profile-form {
     max-width: 600px;
     margin: 0 auto;
@@ -157,20 +152,6 @@ body {
 
 .edit-profile-btn:hover {
     background-color: #0056b3;
-}
-
-.cancel-btn {
-    background-color: white;
-    color: #333;
-    border: 2px solid #ccc;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.cancel-btn:hover {
-    background-color: #f5f5f5;
 }
 
 /* Responsive Design */
