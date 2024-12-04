@@ -2,13 +2,6 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.core.paginator import Paginator
 from jobs.models import Job 
-
-# Create your views here.
-
-from django.db.models import Q
-from django.core.paginator import Paginator
-from django.shortcuts import render
-
 from django.db.models import Q
 
 def index(request):
@@ -22,9 +15,12 @@ def index(request):
             Q(company__name__icontains=query) |  # Adjust for ForeignKey lookup
             Q(skills_required__icontains=query)  # Correct field name for skills
         )
+        # Check if no results are found
+        no_results = jobs.count() == 0
     else:
         # Fetch all jobs if no query is provided
         jobs = Job.objects.all()
+        no_results = False
 
     # Pagination: Show 16 jobs per page
     paginator = Paginator(jobs, 16)
@@ -34,8 +30,11 @@ def index(request):
     context = {
         'page_obj': page_obj,  # Contains the paginated jobs
         'query': query,        # Pass the search query to the template for display
+        'no_results': no_results,  # Pass flag indicating no results
     }
     return render(request, 'home/index.html', context)
+
+
 
 
 

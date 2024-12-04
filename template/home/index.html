@@ -2,16 +2,26 @@
 {% block body %}
 <div class="grid-container">
   {% for job in page_obj %}
-  <div class="grid-item">
-    <div class="job-card">
-      <h2 class="job-title">{{ job.title }}</h2>
-      <p class="company-name">{{ job.company }}</p>
-      <p class="skill">{{ job.skills }}</p>
-      <button class="apply-button">Apply</button>
+    <div class="grid-item">
+      <div class="job-card">
+        <h2 class="job-title">{{ job.title }}</h2>
+        <p class="company-name">{{ job.company.name }}</p>  <!-- Use company.name for the company name -->
+        <p class="skill">{{ job.skills_required }}</p>  <!-- Use skills_required for the skills -->
+        <button class="apply-button">Apply</button>
+      </div>
     </div>
-  </div>
   {% endfor %}
 </div>
+
+<!-- No Results Found Modal -->
+{% if no_results %}
+  <div id="noResultsModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <p>No jobs match your search  Please try a different keyword.</p>
+    </div>
+  </div>
+{% endif %}
 
 <!-- Pagination Controls -->
 <div class="pagination-container">
@@ -33,4 +43,35 @@
 </div>
 
 
+
 {% endblock body %}
+
+{% block script %}
+document.addEventListener('DOMContentLoaded', function() {
+  const noResultsModal = document.getElementById('noResultsModal');
+  const closeBtn = document.querySelector('.close-btn');
+
+  // If the modal exists (i.e., no results were found), show it
+  if (noResultsModal) {
+    noResultsModal.style.display = 'block';
+  }
+
+  // Close button functionality
+  closeBtn.addEventListener('click', function() {
+    noResultsModal.style.display = 'none';
+
+    // Redirect to the homepage
+    window.location.href = '/';  // Modify this if you want to redirect to a different page
+  });
+
+  // Close the modal if the user clicks outside of it
+  window.addEventListener('click', function(event) {
+    if (event.target === noResultsModal) {
+      noResultsModal.style.display = 'none';
+      
+      // Redirect to the homepage
+      window.location.href = '/';  // Modify this if you want to redirect to a different page
+    }
+  });
+});
+{% endblock script %}
