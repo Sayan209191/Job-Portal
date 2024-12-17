@@ -9,7 +9,7 @@ django.setup()
 
 from jobs.models import Job, Company
 
-excel_file = r"D:\Job Portal\JobsData.xlsx"
+excel_file = r"D:\Job Portal\NewJobsData.xlsx"
 data = pd.read_excel(excel_file)
 
 successful = 0

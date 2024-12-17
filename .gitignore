@@ -1,2 +1,4 @@
 *.pyc
 media/
+*/migrations/*.py
+*/migrations/*.pyc
