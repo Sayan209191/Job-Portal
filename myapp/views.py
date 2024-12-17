@@ -12,19 +12,17 @@ def index(request):
         # Filter jobs based on the search query (case-insensitive)
         jobs = Job.objects.filter(
             Q(title__icontains=query) | 
-            Q(company__name__icontains=query) |  # Adjust for ForeignKey lookup
-            Q(skills_required__icontains=query)  # Correct field name for skills
+            Q(company__name__icontains=query) |  
+            Q(skills_required__icontains=query)  
         )
-        # Check if no results are found
         no_results = jobs.count() == 0
     else:
-        # Fetch all jobs if no query is provided
         jobs = Job.objects.all()
         no_results = False
 
     # Pagination: Show 16 jobs per page
     paginator = Paginator(jobs, 16)
-    page_number = request.GET.get('page', 1)  # Get the current page number from the request
+    page_number = request.GET.get('page', 1)  
     page_obj = paginator.get_page(page_number)
 
     context = {
