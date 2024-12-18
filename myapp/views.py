@@ -26,13 +26,38 @@ def index(request):
     page_obj = paginator.get_page(page_number)
 
     context = {
-        'page_obj': page_obj,  # Contains the paginated jobs
-        'query': query,        # Pass the search query to the template for display
-        'no_results': no_results,  # Pass flag indicating no results
+        'page_obj': page_obj,  
+        'query': query,        
+        'no_results': no_results,  
     }
     return render(request, 'home/index.html', context)
 
+def internship(request) :
+    internships = Job.objects.filter(job_type__in=["Internship-Private", "Internship-Govt"])
 
+    # Pagination: Show 16 internships per page
+    paginator = Paginator(internships, 16)
+    page_number = request.GET.get('page', 1)  # Get the current page number from the request
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'page_obj': page_obj,  # Contains the paginated internships
+    }
+
+    return render(request, 'home/internship_engineering.html', context) 
+
+def job_fulltime(request) :
+    jobs = Job.objects.filter(job_type = "Private")
+    paginator = Paginator(jobs, 16)
+    page_number = request.GET.get('page', 1)  # Get the current page number from the request
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'page_obj': page_obj,  # Contains the paginated internships
+    }
+    
+    return render(request, 'home/privatejob.html', context)
+    
 
 
 
