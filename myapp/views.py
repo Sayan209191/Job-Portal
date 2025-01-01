@@ -3,6 +3,9 @@ from django.http import HttpResponse
 from django.core.paginator import Paginator
 from jobs.models import Job 
 from django.db.models import Q
+from django.core.mail import send_mail
+from .models import ContactMessage
+from django.conf import settings
 
 def index(request):
     # Fetch the search query from the request
@@ -66,4 +69,31 @@ def aboutus(request) :
 
 
 def contactus(request) :
+    if request.method == "POST":
+        # Extract data from the form
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+
+        # Save the data to the database
+        ContactMessage.objects.create(name=name, email=email, message=message)
+
+        # Send an auto-generated email
+        send_mail(
+            subject="Thank You for Contacting Us!",
+            message=(
+                "Hello,\n\n"
+                f"Dear {name},\n"
+                "Thank you for reaching out to us. We have received your message and will get back to you soon.\n\n"
+                "Best regards,\nMake Your Career Team"
+            ),
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[email],
+            fail_silently=False,
+        )
+
+        # Redirect to a thank-you page
+        return redirect('/')
+
+    # Render the contact form page
     return render(request, 'footer/contactus.html')
