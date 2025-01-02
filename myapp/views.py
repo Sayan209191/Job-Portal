@@ -93,6 +93,7 @@ def contactus(request) :
         )
 
         # Redirect to a thank-you page
+        # --- make the than you page
         return redirect('/')
 
     # Render the contact form page

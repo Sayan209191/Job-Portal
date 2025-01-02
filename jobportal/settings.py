@@ -29,6 +29,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -209,4 +210,12 @@ LOGGING = {
         'handlers': ['console'],
         'level': 'DEBUG',
     },
+}
+
+
+JAZZMIN_ADMIN_TITLE = "Admin Panel"
+JAZZMIN_INDEX_TITLE = "Make Your Career"
+
+JAZZMIN_UI_TWEAKS = {
+    "theme": "darkly",
 }
