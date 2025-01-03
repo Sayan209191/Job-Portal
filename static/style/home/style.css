@@ -227,6 +227,7 @@ nav ul li:hover .dropdown-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    cursor: pointer;
 }
 
 .footer-links ul {
@@ -235,6 +236,7 @@ nav ul li:hover .dropdown-content {
     padding: 0;
     display: flex;
     justify-content: space-between;
+    text-decoration: none;
 }
 
 .footer-links li {
@@ -244,10 +246,11 @@ nav ul li:hover .dropdown-content {
 .footer-links a {
     color: #333;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .footer-links a:hover {
-    text-decoration: underline;
+    text-shadow: #2c3e50;
 }
 
 .footer-social ul {
@@ -265,8 +268,10 @@ nav ul li:hover .dropdown-content {
 .footer-social img {
     width: 24px;
     height: 24px;
-    border-radius: 50%;
+    border-radius: 15%;
     transition: opacity 0.3s;
+    image-rendering: auto; 
+    object-fit: cover; 
 }
 
 .footer-social img:hover {
@@ -382,12 +387,13 @@ nav ul li:hover .dropdown-content {
     background-color: var(--primary-color);
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 25px;
     padding: 10px 15px;
     font-size: 14px;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
+    text-decoration: none;
 }
 
 .pagination-button:hover {
