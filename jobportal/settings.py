@@ -213,9 +213,11 @@ LOGGING = {
 }
 
 
-JAZZMIN_ADMIN_TITLE = "Admin Panel"
-JAZZMIN_INDEX_TITLE = "Make Your Career"
-
+JAZZMIN_SETTINGS = {
+    'site_header':"MAKE YOUR CAREER",
+    'site_brand' : "MAKE YOUR CAREER",
+    'copyright' : "@Make Your Career",
+}
 JAZZMIN_UI_TWEAKS = {
     "theme": "darkly",
 }
