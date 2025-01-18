@@ -98,7 +98,7 @@ class RequestResetEmailView(View):
             email_message=EmailMessage(email_subject,message,settings.EMAIL_HOST_USER,[email])
             email_message.send()
 
-            # messages.info(request,f"WE HAVE SENT YOU AN EMAIL WITH INSTRUCTIONS ON HOW TO RESET THE PASSWORD {message} " )
+            messages.info("WE HAVE SENT YOU A lLink in Your Register EMAILTO RESET THE PASSWORD  " )
             return render(request,'account/request-reset-email.html')
         else:
             messages.error(request, "No user exists with the provided email.")

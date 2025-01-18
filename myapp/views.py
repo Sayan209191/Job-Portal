@@ -28,7 +28,7 @@ def index(request):
     page_number = request.GET.get('page', 1)  
     page_obj = paginator.get_page(page_number)
 
-    # Determine the range of pages to display (1-10 initially, then increment)
+    
     total_pages = paginator.num_pages
     current_page = page_obj.number
     start_page = (current_page - 1) // 10 * 10 + 1
