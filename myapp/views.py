@@ -16,7 +16,10 @@ def index(request):
         jobs = Job.objects.filter(
             Q(title__icontains=query) | 
             Q(company__name__icontains=query) |  
-            Q(skills_required__icontains=query)  
+            Q(skills_required__icontains=query)|
+            Q(job_type__icontains=query)|
+            Q(location__icontains=query)|
+            Q(company_icontains=query) 
         )
         no_results = jobs.count() == 0
     else:
