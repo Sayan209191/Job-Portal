@@ -26,7 +26,7 @@ class Job(models.Model):
     skills_required = models.TextField()
     description = models.TextField()
     location = models.CharField(max_length=255)
-    date_posted = models.DateField(auto_now_add=True)
+    date_posted = models.DateField()
     experience_required = models.CharField(max_length=100, null=True, blank=True)
     application_link = models.URLField(blank=True, null=True)
 

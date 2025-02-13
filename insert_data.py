@@ -9,7 +9,7 @@ django.setup()
 
 from jobs.models import Job, Company
 
-excel_file = r"D:\Job Portal\NewJobsData.xlsx"
+excel_file = r"D:\Job Portal\JobsData_New_Part_1.xlsx"
 data = pd.read_excel(excel_file)
 
 successful = 0
@@ -30,7 +30,8 @@ for index, row in data.iterrows():
             description=row['description'],
             location=row['location'],
             date_posted=pd.to_datetime(row['date_posted']).to_pydatetime(),
-            experience_required=row.get('experience_required', None)
+            experience_required=row.get('experience_required', None),
+            application_link = row.get('application_link', None)
         )
         successful += 1
     except Exception as e:

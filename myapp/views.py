@@ -9,7 +9,7 @@ from django.conf import settings
 
 def index(request):
     # Fetch the search query from the request
-    query = request.GET.get('q', '')  # Default to an empty string if 'q' is not in the request
+    query = request.GET.get('q', '').strip()   
 
     if query:
         # Filter jobs based on the search query (case-insensitive)
@@ -19,14 +19,14 @@ def index(request):
             Q(skills_required__icontains=query)|
             Q(job_type__icontains=query)|
             Q(location__icontains=query)|
-            Q(company_icontains=query) 
-        )
+            Q(company__icontains=query) 
+        ).order_by('-date_posted') 
         no_results = jobs.count() == 0
     else:
-        jobs = Job.objects.all()
+        jobs = Job.objects.all().order_by('-date_posted')
         no_results = False
 
-    # Pagination: Show 40 jobs per page
+    # Pagination: Show 40 jobs per page         
     paginator = Paginator(jobs, 40)
     page_number = request.GET.get('page', 1)  
     page_obj = paginator.get_page(page_number)
@@ -43,7 +43,7 @@ def index(request):
         'page_obj': page_obj,  
         'query': query,        
         'no_results': no_results,  
-        'page_range': page_range,  # Add the calculated page range
+        'page_range': page_range,  
     }
     return render(request, 'home/index.html', context)
 
@@ -110,3 +110,6 @@ def contactus(request) :
 
     # Render the contact form page
     return render(request, 'footer/contactus.html')
+
+
+# apply Job Button

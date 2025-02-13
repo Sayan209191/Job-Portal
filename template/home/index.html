@@ -2,11 +2,19 @@
 {% block body %}
 <div class="grid-container">
   {% for job in page_obj %}
+    
     <div class="grid-item">
       <div class="job-card">
         <h2 class="job-title">{{ job.title }}</h2>
-        <p class="company-name">{{ job.company.name }}</p>  <!-- Use company.name for the company name -->
-        <button class="apply-button">Apply</button>
+        <p class="company-name">{{ job.company.name }}</p> 
+        {% comment %} <p>Debug: Application Link - {{ job.application_link }}</p> {% endcomment %}
+        {% comment %} {% if job.application_url == "" %} {% endcomment %}
+        <a href="{{ job.application_link }}" target="_blank">
+          <button class="apply-button">Apply</button>
+        </a>
+        {% comment %} {% else %}
+          <span class="apply-button disabled">Application CLose</span>
+        {% endif %} {% endcomment %}
       </div>
     </div>
   {% endfor %}
