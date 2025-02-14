@@ -5,8 +5,8 @@
     
     <div class="grid-item">
       <div class="job-card">
-        <h2 class="job-title">{{ job.title }}</h2>
-        <p class="company-name">{{ job.company.name }}</p> 
+        <a href="{% url 'job_detail' job.id %}"><h2 class="job-title">{{ job.title }}</h2></a>
+        <a href="{% url 'company_overview' job.company.id %}"><p class="company-name">{{ job.company.name }}</p></a>
         {% comment %} <p>Debug: Application Link - {{ job.application_link }}</p> {% endcomment %}
         {% comment %} {% if job.application_url == "" %} {% endcomment %}
         <a href="{{ job.application_link }}" target="_blank">

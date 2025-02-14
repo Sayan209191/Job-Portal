@@ -1,0 +1,18 @@
+{% extends 'home/base.html' %}
+
+{% block body %}
+<div class="container">
+    <h2>{{ job.title }}</h2>
+    <h4>Company: {{ job.company.name }}</h4>
+    <p><strong>Job Type:</strong> {{ job.get_job_type_display }}</p>
+    
+    <p><strong>Description:</strong> {{ job.description }}</p>
+    <p><strong>Skills Required:</strong> {{ job.skills_required }}</p>
+    <p><strong>Location:</strong> {{ job.location }}</p>
+    <p><strong>Date Posted:</strong> {{ job.date_posted|date:"F d, Y" }}</p>
+    <p><strong>Experience Required:</strong> {{ job.experience_required }}</p>
+    <a href="{{ job.application_link }}" target="_blank">
+        <button class="apply-button">Apply</button>
+    </a>
+</div>
+{% endblock %}

@@ -334,6 +334,10 @@ nav ul li:hover .dropdown-content {
     padding: 20px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+.grid-item a {
+    text-decoration: none;
+    color: var(--text-color);
+}
 
 .grid-item:hover {
     transform: translateY(-5px);

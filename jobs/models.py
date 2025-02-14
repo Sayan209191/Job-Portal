@@ -8,6 +8,8 @@ class Company(models.Model) :
     location = models.CharField(max_length=255)
     website = models.URLField(blank=True, null=True)
     mobile_number = models.CharField(max_length=15, blank=True, null=True)
+    email_address = models.EmailField(blank=True, null=True)
+    logo_url = models.URLField(blank=True, null=True)
 
     def __str__(self):
         return self.name

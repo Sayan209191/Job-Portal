@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
 from django.core.paginator import Paginator
-from jobs.models import Job 
+from jobs.models import Company, Job 
 from django.db.models import Q
 from django.core.mail import send_mail
 from .models import ContactMessage
@@ -111,5 +111,12 @@ def contactus(request) :
     # Render the contact form page
     return render(request, 'footer/contactus.html')
 
+def job_detail(request, job_id):
+    job = get_object_or_404(Job, id=job_id)
+    return render(request, 'home/jobdescription.html', {'job': job})
 
-# apply Job Button
+
+def company_overview(request, company_id):
+    company = get_object_or_404(Company, id=company_id)
+    jobs = Job.objects.filter(company=company)  # Get all jobs by this company
+    return render(request, 'home/companydescription.html', {'company': company, 'jobs': jobs})
