@@ -87,7 +87,7 @@ nav ul li:hover .dropdown-content {
 }
 
 .dropdown-content a:hover {
-    background-color: #f1f1f1;
+    background-color: transparent;
 }
 
 
@@ -245,7 +245,7 @@ nav ul li:hover .dropdown-content {
 .footer-container {
     background-color: #f7f7f7;
     padding: 20px;
-    display: flex;
+    display: wrap;
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
@@ -365,7 +365,7 @@ nav ul li:hover .dropdown-content {
     box-shadow: 0 8px 12px var(--box-shadow-hover);
 }
 
-.job-card {
+/* .job-card {
     text-align: center;
     width: 100%;
 }
@@ -397,6 +397,73 @@ nav ul li:hover .dropdown-content {
 .skill {
     font-size: 12px;
     color: var(--text-muted);
+} */
+.grid-container {
+    font-family: Arial, sans-serif;
+    display: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    
+}
+.grid-item {
+    display: flex;
+    gap: 20px;
+}
+.card {
+    width: 250px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+.card-header {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.card-header img {
+    position: absolute;
+    top: 50%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    background: white;
+    border-radius: 10px;
+    padding: 5px;
+}
+.card-content {
+    padding: 15px;
+}
+.card h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+.card p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: black;
+}
+.meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: black;
+}
+.tag {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: white;
+    padding: 3px 8px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
 }
 
 .pagination-container {
