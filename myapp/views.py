@@ -18,8 +18,8 @@ def index(request):
             Q(company__name__icontains=query) |  
             Q(skills_required__icontains=query)|
             Q(job_type__icontains=query)|
-            Q(location__icontains=query)|
-            Q(company__icontains=query) 
+            Q(location__icontains=query)
+            # Q(company__icontains=query) 
         ).order_by('-date_posted') 
         no_results = jobs.count() == 0
     else:

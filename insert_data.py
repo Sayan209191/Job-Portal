@@ -9,15 +9,15 @@ django.setup()
 
 from jobs.models import Job, Company
 
-excel_file = r"D:\Job Portal\JobsData_New_Part_1.xlsx"
+excel_file = r"D:\Job Portal\NewJobDataPart2.xlsx"
 data = pd.read_excel(excel_file)
-
-successful = 0
+data['date_posted'] = pd.to_datetime(data['date_posted'], dayfirst=True, errors='coerce').dt.strftime('%Y-%m-%d')
+successful = 0  
 failed = 0
 
 for index, row in data.iterrows():
     try:
-        # Get or create the company
+       
         company_name = row['company']
         company, created = Company.objects.get_or_create(name=company_name)
 
