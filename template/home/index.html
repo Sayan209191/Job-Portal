@@ -25,7 +25,7 @@
             <a href="{% url 'company_overview' job.company.id %}"><p>{{ job.company.name }}</p></a>
               <div class="meta">
                   {% comment %} <span>👁 5 Views</span> {% endcomment %}
-                  <span>📅 13 days left</span>
+                  <span>📅 {{ job.days_left}} Days Ago</span>
               </div>
           </div>
       </div>
@@ -47,16 +47,18 @@
 <!-- Pagination Controls -->
 <div class="pagination-container">
   {% if page_obj.has_previous %}
-      <a href="?page={{ page_obj.previous_page_number }}{% if query %}&q={{ query }}{% endif %}" class="pagination-button">Previous</a>
+      <a href="?page={{ page_obj.previous_page_number }}" class="pagination-button">Previous</a>
   {% endif %}
 
-  {% for num in page_obj.paginator.page_range %}
+  {% for num in page_range %}
       {% if page_obj.number == num %}
           <span class="pagination-button active">{{ num }}</span>
       {% else %}
-          <a href="?page={{ num }}{% if query %}&q={{ query }}{% endif %}" class="pagination-button">{{ num }}</a>
+          <a href="?page={{ num }}" class="pagination-button">{{ num }}</a>
       {% endif %}
   {% endfor %}
+
+
 
   {% if page_obj.has_next %}
       <a href="?page={{ page_obj.next_page_number }}{% if query %}&q={{ query }}{% endif %}" class="pagination-button">Next</a>

@@ -1,3 +1,4 @@
+from datetime import date
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.core.paginator import Paginator
@@ -25,26 +26,31 @@ def index(request):
     else:
         jobs = Job.objects.all().order_by('-date_posted')
         no_results = False
-
-    # Pagination: Show 40 jobs per page         
-    paginator = Paginator(jobs,16)
-    page_number = request.GET.get('page', 1)  
+        
+    for job in jobs:
+        job.days_left = ( date.today() - job.date_posted).days
+    # Pagination: Show 16 jobs per page         
+    paginator = Paginator(jobs, 16)
+    page_number = request.GET.get('page', 1)
     page_obj = paginator.get_page(page_number)
 
-    
     total_pages = paginator.num_pages
     current_page = page_obj.number
-    start_page = (current_page - 1) // 10 * 10 + 1
-    end_page = min(start_page + 9, total_pages)
+
+    # Pagination range logic: Show 1-9, then "Next"
+    start_page = ((current_page - 1) // 9) * 9 + 1
+    end_page = min(start_page + 8, total_pages)
 
     page_range = range(start_page, end_page + 1)
 
     context = {
-        'page_obj': page_obj,  
-        'query': query,        
-        'no_results': no_results,  
-        'page_range': page_range,  
+        'page_obj': page_obj,
+        'page_range': page_range,
+        'total_pages': total_pages,
     }
+
+
+   
     return render(request, 'home/index.html', context)
 
 def internship(request) :
