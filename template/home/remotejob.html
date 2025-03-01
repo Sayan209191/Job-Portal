@@ -1,0 +1,36 @@
+{% extends "home/base.html" %}
+{% block body %}
+<div class="grid-container">
+    {% for job in page_obj %}
+    <div class="grid-item">
+      <div class="job-card">
+        <h2 class="job-title">{{ job.title }}</h2>
+        <p class="company-name">{{ job.company.name }}</p>
+        <p class="location">{{ job.location }}</p>
+        <button class="apply-button">Apply</button>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  
+  <!-- Pagination Controls -->
+  <div class="pagination-container">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}" class="pagination-button">Previous</a>
+    {% endif %}
+  
+    {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+            <span class="pagination-button active">{{ num }}</span>
+        {% else %}
+            <a href="?page={{ num }}" class="pagination-button">{{ num }}</a>
+        {% endif %}
+    {% endfor %}
+  
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="pagination-button">Next</a>
+    {% endif %}
+  </div>
+  
+
+{% endblock body %}

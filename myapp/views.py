@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.core.paginator import Paginator
 from jobs.models import Company, Job 
 from django.db.models import Q
@@ -48,7 +48,7 @@ def index(request):
     return render(request, 'home/index.html', context)
 
 def internship(request) :
-    internships = Job.objects.filter(job_type__in=["Internship-Private", "Internship-Govt"])
+    internships = Job.objects.filter(job_type__in=["Internship-Private", "Internship-Govt"]).order_by('-date_posted') 
 
     # Pagination: Show 16 internships per page
     paginator = Paginator(internships, 16)
@@ -62,7 +62,7 @@ def internship(request) :
     return render(request, 'home/internship_engineering.html', context) 
 
 def job_fulltime(request) :
-    jobs = Job.objects.filter(job_type = "Private")
+    jobs = Job.objects.filter(job_type = "Private").order_by('-date_posted')
     paginator = Paginator(jobs, 16)
     page_number = request.GET.get('page', 1)  # Get the current page number from the request
     page_obj = paginator.get_page(page_number)
@@ -120,3 +120,31 @@ def company_overview(request, company_id):
     company = get_object_or_404(Company, id=company_id)
     jobs = Job.objects.filter(company=company)  # Get all jobs by this company
     return render(request, 'home/companydescription.html', {'company': company, 'jobs': jobs})
+
+
+def remote_jobs(request):
+    jobs = Job.objects.filter(location__icontains="Remote").order_by('-date_posted') 
+    paginator = Paginator(jobs, 16)
+    page_number = request.GET.get('page', 1)  # Get the current page number from the request
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'page_obj': page_obj,  # Contains the paginated internships
+    }
+    
+    return render(request, 'home/remotejob.html', context)
+
+def search_suggestions(request):
+    query = request.GET.get('q', '').strip()
+    suggestions = []
+
+    if query:
+        jobs = Job.objects.filter(
+            Q(title__icontains=query) | 
+            Q(company__name__icontains=query) |
+            Q(skills_required__icontains=query)
+        ).distinct()[:10]  # Limit results to 10 suggestions
+
+        suggestions = list(jobs.values_list('title', flat=True))  # Get only job titles
+
+    return JsonResponse({'suggestions': suggestions})

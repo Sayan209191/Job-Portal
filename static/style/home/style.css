@@ -159,6 +159,27 @@ nav ul li:hover .dropdown-content {
 }
 
 
+#suggestions-box {
+    position: absolute;
+    width: 100%;
+    background: white;
+    border: 1px solid #ccc;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 0;
+    top: 60px;
+}
+
+.suggestion-item {
+    padding: 8px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+.suggestion-item:hover {
+    background-color: #f0f0f0;
+}
+
 .profile-dropdown {
     position: relative;
     display: inline-block;
@@ -492,3 +513,5 @@ nav ul li:hover .dropdown-content {
     text-decoration: none;
     cursor: pointer;
 }
+
+
