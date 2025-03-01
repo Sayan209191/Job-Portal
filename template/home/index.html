@@ -17,14 +17,14 @@
         {% endif %} {% endcomment %} -->
         <div class="card" style="background: linear-gradient(135deg, #6A5ACD, #9370DB);">
           <div class="card-header">
-              <span class="tag">In Office</span>
-              <img src="g4s_logo.png" alt="G4S">
+              <span class="tag">{{job.location}}</span>
+              {% comment %} <img src="g4s_logo.png" alt="G4S"> {% endcomment %}
           </div>
           <div class="card-content">
-              <h3>Management Trainee - Finance</h3>
-              <p>G4S</p>
+            <a href="{% url 'job_detail' job.id %}"><h3>{{ job.title }}</h3></a>
+            <a href="{% url 'company_overview' job.company.id %}"><p>{{ job.company.name }}</p></a>
               <div class="meta">
-                  <span>👁 5 Views</span>
+                  {% comment %} <span>👁 5 Views</span> {% endcomment %}
                   <span>📅 13 days left</span>
               </div>
           </div>
