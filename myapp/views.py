@@ -27,7 +27,7 @@ def index(request):
         no_results = False
 
     # Pagination: Show 40 jobs per page         
-    paginator = Paginator(jobs, 40)
+    paginator = Paginator(jobs,16)
     page_number = request.GET.get('page', 1)  
     page_obj = paginator.get_page(page_number)
 
