@@ -162,11 +162,11 @@ nav ul li:hover .dropdown-content {
 #suggestions-box {
     position: absolute;
     width: 100%;
-    background: white;
+    background: rgb(252, 252, 252);
     border: 1px solid #ccc;
     max-height: 200px;
     overflow-y: auto;
-    z-index: 0;
+    z-index: 1000;
     top: 60px;
 }
 
@@ -174,7 +174,7 @@ nav ul li:hover .dropdown-content {
     padding: 8px;
     cursor: pointer;
     border-bottom: 1px solid #eee;
-}
+}   
 
 .suggestion-item:hover {
     background-color: #f0f0f0;
@@ -417,6 +417,7 @@ nav ul li:hover .dropdown-content {
     background: white;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     position: relative;
+    
 }
 .card-header {
     height: 80px;
@@ -447,7 +448,7 @@ nav ul li:hover .dropdown-content {
 .card p {
     margin: 5px 0;
     font-size: 14px;
-    color: black;
+    color: rgb(10, 10, 10);
 }
 .meta {
     display: flex;
