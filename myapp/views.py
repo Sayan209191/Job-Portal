@@ -62,7 +62,8 @@ def internship(request) :
     return render(request, 'home/internship_engineering.html', context) 
 
 def job_fulltime(request) :
-    jobs = Job.objects.filter(job_type = "Private").order_by('-date_posted')
+    jobs = Job.objects.filter(job_type="Private", date_posted__isnull=False).order_by('-date_posted')
+
     paginator = Paginator(jobs, 16)
     page_number = request.GET.get('page', 1)  # Get the current page number from the request
     page_obj = paginator.get_page(page_number)
