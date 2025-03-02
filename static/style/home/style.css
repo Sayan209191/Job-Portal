@@ -174,7 +174,15 @@ nav ul li:hover .dropdown-content {
     padding: 8px;
     cursor: pointer;
     border-bottom: 1px solid #eee;
-}   
+}
+
+.suggestion-item:hover {
+    background-color: #f0f0f0;
+}
+
+.suggestion-item strong {
+    color: rgb(76, 153, 242);
+}
 
 .suggestion-item:hover {
     background-color: #f0f0f0;

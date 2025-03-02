@@ -16,7 +16,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (data.suggestions.length > 0) {
                     data.suggestions.forEach(suggestion => {
                         let div = document.createElement("div");
-                        div.textContent = suggestion;
+                        let highlightedText = suggestion.replace(new RegExp(query, "gi"), (match) => `<strong>${match}</strong>`);
+                        div.innerHTML = highlightedText;
                         div.classList.add("suggestion-item");
                         div.addEventListener("click", function () {
                             searchInput.value = suggestion;
