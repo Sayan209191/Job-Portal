@@ -245,7 +245,7 @@ nav ul li:hover .dropdown-content {
 .footer-container {
     background-color: #f7f7f7;
     padding: 20px;
-    display: wrap;
+    display: flex;
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
