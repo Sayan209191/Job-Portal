@@ -4,33 +4,47 @@
     {% for job in page_obj %}
     <div class="grid-item">
       <div class="job-card">
-        <h2 class="job-title">{{ job.title }}</h2>
-        <p class="company-name">{{ job.company.name }}</p>
-        <p class="location">{{ job.location }}</p>
-        <button class="apply-button">Apply</button>
+        
+        <div class="card" style="background: linear-gradient(135deg, #6A5ACD, #9370DB);">
+          <div class="card-header">
+              <span class="tag">{{job.location}}</span>
+              {% comment %} <img src="g4s_logo.png" alt="G4S"> {% endcomment %}
+          </div>
+          <div class="card-content">
+            <a href="{% url 'job_detail' job.id %}"><h3>{{ job.title }}</h3></a>
+            <a href="{% url 'company_overview' job.company.id %}"><p>{{ job.company.name }}</p></a>
+              <div class="meta">
+                  {% comment %} <span>👁 5 Views</span> {% endcomment %}
+                  <span>📅 {{ job.days_left}} Days Ago</span>
+              </div>
+          </div>
+      </div>
       </div>
     </div>
     {% endfor %}
-  </div>
+</div>
   
   <!-- Pagination Controls -->
-  <div class="pagination-container">
-    {% if page_obj.has_previous %}
-        <a href="?page={{ page_obj.previous_page_number }}" class="pagination-button">Previous</a>
-    {% endif %}
-  
-    {% for num in page_obj.paginator.page_range %}
-        {% if page_obj.number == num %}
-            <span class="pagination-button active">{{ num }}</span>
-        {% else %}
-            <a href="?page={{ num }}" class="pagination-button">{{ num }}</a>
-        {% endif %}
-    {% endfor %}
-  
-    {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}" class="pagination-button">Next</a>
-    {% endif %}
-  </div>
+<div class="pagination-container">
+  {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}" class="pagination-button">Previous</a>
+  {% endif %}
+
+  {% for num in page_range %}
+      {% if page_obj.number == num %}
+          <span class="pagination-button active">{{ num }}</span>
+      {% else %}
+          <a href="?page={{ num }}" class="pagination-button">{{ num }}</a>
+      {% endif %}
+  {% endfor %}
+
+
+
+  {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}{% if query %}&q={{ query }}{% endif %}" class="pagination-button">Next</a>
+  {% endif %}
+</div>
+
   
 
 {% endblock body %}

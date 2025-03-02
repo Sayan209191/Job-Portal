@@ -56,26 +56,50 @@ def index(request):
 def internship(request) :
     internships = Job.objects.filter(job_type__in=["Internship-Private", "Internship-Govt"]).order_by('-date_posted') 
 
-    # Pagination: Show 16 internships per page
+    for internship in internships:
+        internship.days_left = ( date.today() - internship.date_posted).days
     paginator = Paginator(internships, 16)
-    page_number = request.GET.get('page', 1)  # Get the current page number from the request
+    page_number = request.GET.get('page', 1)
     page_obj = paginator.get_page(page_number)
 
+    total_pages = paginator.num_pages
+    current_page = page_obj.number
+
+    # Pagination range logic: Show 1-9, then "Next"
+    start_page = ((current_page - 1) // 9) * 9 + 1
+    end_page = min(start_page + 8, total_pages)
+
+    page_range = range(start_page, end_page + 1)
+
     context = {
-        'page_obj': page_obj,  # Contains the paginated internships
+        'page_obj': page_obj,
+        'page_range': page_range,
+        'total_pages': total_pages,
     }
 
     return render(request, 'home/internship_engineering.html', context) 
 
 def job_fulltime(request) :
     jobs = Job.objects.filter(job_type="Private", date_posted__isnull=False).order_by('-date_posted')
-
+    for job in jobs:
+        job.days_left = ( date.today() - job.date_posted).days
     paginator = Paginator(jobs, 16)
-    page_number = request.GET.get('page', 1)  # Get the current page number from the request
+    page_number = request.GET.get('page', 1)
     page_obj = paginator.get_page(page_number)
 
+    total_pages = paginator.num_pages
+    current_page = page_obj.number
+
+    # Pagination range logic: Show 1-9, then "Next"
+    start_page = ((current_page - 1) // 9) * 9 + 1
+    end_page = min(start_page + 8, total_pages)
+
+    page_range = range(start_page, end_page + 1)
+
     context = {
-        'page_obj': page_obj,  # Contains the paginated internships
+        'page_obj': page_obj,
+        'page_range': page_range,
+        'total_pages': total_pages,
     }
     
     return render(request, 'home/privatejob.html', context)
@@ -131,12 +155,25 @@ def company_overview(request, company_id):
 
 def remote_jobs(request):
     jobs = Job.objects.filter(location__icontains="Remote").order_by('-date_posted') 
+    for job in jobs:
+        job.days_left = ( date.today() - job.date_posted).days
     paginator = Paginator(jobs, 16)
-    page_number = request.GET.get('page', 1)  # Get the current page number from the request
+    page_number = request.GET.get('page', 1)
     page_obj = paginator.get_page(page_number)
 
+    total_pages = paginator.num_pages
+    current_page = page_obj.number
+
+    # Pagination range logic: Show 1-9, then "Next"
+    start_page = ((current_page - 1) // 9) * 9 + 1
+    end_page = min(start_page + 8, total_pages)
+
+    page_range = range(start_page, end_page + 1)
+
     context = {
-        'page_obj': page_obj,  # Contains the paginated internships
+        'page_obj': page_obj,
+        'page_range': page_range,
+        'total_pages': total_pages,
     }
     
     return render(request, 'home/remotejob.html', context)
