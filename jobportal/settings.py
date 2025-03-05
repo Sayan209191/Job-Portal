@@ -14,7 +14,27 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-=_k+dwt!n6$hinlrk#rt(dul5(x7g-u0gm$6fr8$vz@6whqj9y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
 DEBUG = True
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'debug.log',
+        },
+    },
+    'loggers': {
+        'django.db.backends': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
+
 
 EMAIL_HOST='smtp.gmail.com'
 EMAIL_HOST_USER='makeyourcareer.helpdesk@gmail.com'
@@ -102,6 +122,22 @@ DATABASES = {
         },
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'ENFORCE_SCHEMA': False,
+#         'CLIENT': {
+#             'host': 'mongodb+srv://sayan:sayan@makeyourcareer.7z6bd.mongodb.net/?retryWrites=true&w=majority&appName=MAKEYOURCAREER',
+#             'port': 27017,              
+#             'username': 'sayan', 
+#             'password': 'sayan',
+#             # 'authSource': 'admin',
+#             # 'authmechnishm': 'SCRAM-SHA-1',
+#         },
+#         'NAME': 'MAKEYOURCAREER',
+#     }
+# }
 
 
 # Password validation
