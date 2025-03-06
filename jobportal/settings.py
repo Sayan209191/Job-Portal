@@ -4,7 +4,7 @@ import pymysql
 
 pymysql.version_info = (1,4,6,'final',0) 
 pymysql.install_as_MySQLdb()
-
+# from pymongo import MongoClient
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'allauth.account',  
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    # 'CustomSocialAccount'
 ]
 
 MIDDLEWARE = [
@@ -123,12 +124,17 @@ DATABASES = {
     }
 }
 
+# SOCIALACCOUNT_MODELS = {
+#     "socialaccount.SocialAccount": {
+#         "extra_data": {"type": "dict", "default": {}}
+#     }
+# }
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'djongo',
 #         'ENFORCE_SCHEMA': False,
 #         'CLIENT': {
-#             'host': 'mongodb+srv://sayan:sayan@makeyourcareer.7z6bd.mongodb.net/?retryWrites=true&w=majority&appName=MAKEYOURCAREER',
+#             'host': 'mongodb+srv://sayan:sayan@makeyourcareer.haskg.mongodb.net/?retryWrites=true&w=majority&appName=MAKEYOURCAREER',
 #             'port': 27017,              
 #             'username': 'sayan', 
 #             'password': 'sayan',
@@ -139,6 +145,8 @@ DATABASES = {
 #     }
 # }
 
+# client = MongoClient("mongodb+srv://sayan:sayan@makeyourcareer.haskg.mongodb.net/?retryWrites=true&w=majority&appName=MAKEYOURCAREER")
+# db = client['sayan']
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
