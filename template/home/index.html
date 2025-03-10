@@ -1,70 +1,109 @@
 {% extends "home/base.html" %}
+{% load static %}
+{% block extra_css %}
+       
+    <link href="{% static 'style/home/landing.css' %}" rel="stylesheet">
+{% endblock %}
+
+
 {% block body %}
-<div class="grid-container">
-  {% for job in page_obj %}
-    
-    <div class="grid-item">
-      <div class="job-card">
-        <!-- <a href="{% url 'job_detail' job.id %}"><h2 class="job-title">{{ job.title }}</h2></a>
-        <a href="{% url 'company_overview' job.company.id %}"><p class="company-name">{{ job.company.name }}</p></a>
-        {% comment %} <p>Debug: Application Link - {{ job.application_link }}</p> {% endcomment %}
-        {% comment %} {% if job.application_url == "" %} {% endcomment %}
-        <a href="{{ job.application_link }}" target="_blank">
-          <button class="apply-button">Apply</button>
-        </a>
-        {% comment %} {% else %}
-          <span class="apply-button disabled">Application CLose</span>
-        {% endif %} {% endcomment %} -->
-        <div class="card" style="background: linear-gradient(135deg, #6A5ACD, #9370DB);">
-          <div class="card-header">
-              <span class="tag">{{job.location}}</span>
-              {% comment %} <img src="g4s_logo.png" alt="G4S"> {% endcomment %}
-          </div>
-          <div class="card-content">
-            <a href="{% url 'job_detail' job.id %}"><h3>{{ job.title }}</h3></a>
-            <a href="{% url 'company_overview' job.company.id %}"><p>{{ job.company.name }}</p></a>
-              <div class="meta">
-                  {% comment %} <span>👁 5 Views</span> {% endcomment %}
-                  <span>📅 {{ job.days_left}} Days Ago</span>
-              </div>
-          </div>
-      </div>
-      </div>
+
+<div class="container">
+    <div class="Text">
+        <h1><span class="highlight">Unlock</span> Your Career</h1>
+        <p class="subtext">Explore opportunities from across the globe to grow, showcase skills, gain CV points &
+            get hired by your dream company.</p>
     </div>
-  {% endfor %}
-</div>
+    <div class="grid-container-index">
+        <div class="card-internships">
+            <div class="card-content">
+                <h2>Internships</h2>
+                <p>Gain Practical Experience</p>
+            </div>
+            <img src="internships-icon.png" alt="Internships">
+        </div>
 
-<!-- No Results Found Modal -->
-{% if no_results %}
-  <div id="noResultsModal" class="modal">
-    <div class="modal-content">
-      <span class="close-btn">&times;</span>
-      <p>No jobs match your search  Please try a different keyword.</p>
+        <div class="card-jobs">
+            <div class="card-content">
+                <h2>Jobs</h2>
+                <p>Explore Diverse Careers</p>
+            </div>
+            <img src="jobs-icon.png" alt="Jobs">
+        </div>
+        <div class="card-Mentorships">
+            <div class="card-content">
+                <h2>Mentorships</h2>
+            </div>
+            <img src="more-icon.png" alt="More">
+        </div>
+        <div class="card-more">
+            <div class="card-content">
+                <h2>More</h2>
+            </div>
+            <img src="more-icon.png" alt="More">
+        </div>
     </div>
-  </div>
-{% endif %}
-
-<!-- Pagination Controls -->
-<div class="pagination-container">
-  {% if page_obj.has_previous %}
-      <a href="?page={{ page_obj.previous_page_number }}" class="pagination-button">Previous</a>
-  {% endif %}
-
-  {% for num in page_range %}
-      {% if page_obj.number == num %}
-          <span class="pagination-button active">{{ num }}</span>
-      {% else %}
-          <a href="?page={{ num }}" class="pagination-button">{{ num }}</a>
-      {% endif %}
-  {% endfor %}
-
-
-
-  {% if page_obj.has_next %}
-      <a href="?page={{ page_obj.next_page_number }}{% if query %}&q={{ query }}{% endif %}" class="pagination-button">Next</a>
-  {% endif %}
 </div>
+<section class="internships-section">
+    <h3>Internships</h3>
+    <p>Find the Internships that fit your career aspirations.</p>
+    <div class="carousel-container">
+        <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+        <div class="internship-container">
+            {% for internship in internships %}
+            <div class="internship-card" style="background: linear-gradient(135deg,rgb(166, 222, 235),rgb(116, 181, 228))">
+                <span class="badge">{{internship.location}}</span>
+                <img src="company-logo4.png" alt="Company Logo">
+                <div class="job-title"><a href="{% url 'job_detail' internship.id %}">{{ internship.title }}</a></div>
+                <div class="company-name"><a href="{% url 'company_overview' internship.company.id %}">{{ internship.company.name }}</a></div>
+                <div class="job-footer">
+                    <span>&#128065; 24 Views</span>
+                    <span>📅 {{ internship.days_left}} Days Ago</span>
+                </div>
+            </div>
+            
+            {% endfor %}
+        </div>
+        <button class="next" onclick="moveSlide(1)">&#10095;</button>
+    </div>
+</section>
+<section class="jobs-section">
+    <h2>Jobs</h2>
+    <p>Find the Jobs that fit your career aspirations.</p>
 
+    <div class="carousel-container">
+        <button class="prev" onclick="moveSlideJob(-1)">&#10094;</button>
+        <div class="internship-container">
+            {% for job in jobs %}
+            {% comment %} <div class="internship-card" style="background: linear-gradient(135deg,rgb(166, 222, 235),rgb(116, 181, 228)));">
+                <span class="badge">{{job.location}}</span>
+                <img src="company-logo1.png" alt="Company Logo">
+                <div class="job-title"><a href="{% url 'job_detail' job.id %}">{{ job.title }}</a></div>
+                <div class="company-name"><a href="{% url 'company_overview' job.company.id %}">{{ job.company.name }}</a></div>
+                
+            
+                <div class="job-footer">
+                    <span>&#128065; 4 Views</span>
+                    <span>📅 {{ job.days_left}} Days Ago</span>
+                </div>
+            </div> {% endcomment %}
+            <div class="internship-card" style="background: linear-gradient(135deg,rgb(166, 222, 235),rgb(116, 181, 228))">
+                <span class="badge">{{job.location}}</span>
+                <img src="company-logo4.png" alt="Company Logo">
+                <div class="job-title"><a href="{% url 'job_detail' job.id %}">{{ job.title }}</a></div>
+                <div class="company-name"><a href="{% url 'company_overview' job.company.id %}">{{ job.company.name }}</a></div>
+                <div class="job-footer">
+                    <span>&#128065; 24 Views</span>
+                    <span>📅 {{ job.days_left}} Days Ago</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <button class="next" onclick="moveSlideJob(1)">&#10095;</button>
+    </div>
+
+
+</section>
 
 
 {% endblock body %}

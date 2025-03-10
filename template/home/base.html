@@ -7,11 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link href="{% static 'style/home/style.css' %}" rel="stylesheet">
+    {% block extra_css %}
+    {% comment %} for new css another page {% endcomment %}
+    {% endblock %}
     <link rel="shortcut icon" href="{% static 'favicon/favicon.png' %}" type="image/png">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="{% static 'js/home/searchsuggestions.js' %}"></script> 
-    <script src="{% static 'js/home/script.js' %}"></script> 
+    <script src="{% static 'js/home/script.js' %}"></script>
+    <script src="{% static 'js/home/carousel.js' %}"></script> 
+    
 </head>
 
 <body>
@@ -40,7 +45,7 @@
             </ul>
         </nav>
         <div class="search-bar">
-            <form method="get" action="{% url 'index' %}">
+            <form method="get" action="/search">
                 <input 
                     type="text" 
                     id="search-input" 
@@ -115,9 +120,7 @@
             </div>
         </div>
     </footer>
-    <script>
-        {% block script %}{% endblock script %}
-    </script>
+    
     
 </body>
 

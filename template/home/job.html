@@ -1,0 +1,70 @@
+{% extends "home/base.html" %}
+{% block body %}
+<div class="grid-container">
+  {% for job in page_obj %}
+    
+    <div class="grid-item">
+      <div class="job-card">
+        <!-- <a href="{% url 'job_detail' job.id %}"><h2 class="job-title">{{ job.title }}</h2></a>
+        <a href="{% url 'company_overview' job.company.id %}"><p class="company-name">{{ job.company.name }}</p></a>
+        {% comment %} <p>Debug: Application Link - {{ job.application_link }}</p> {% endcomment %}
+        {% comment %} {% if job.application_url == "" %} {% endcomment %}
+        <a href="{{ job.application_link }}" target="_blank">
+          <button class="apply-button">Apply</button>
+        </a>
+        {% comment %} {% else %}
+          <span class="apply-button disabled">Application CLose</span>
+        {% endif %} {% endcomment %} -->
+        <div class="card" style="background: linear-gradient(135deg, #6A5ACD, #9370DB);">
+          <div class="card-header">
+              <span class="tag">{{job.location}}</span>
+              {% comment %} <img src="g4s_logo.png" alt="G4S"> {% endcomment %}
+          </div>
+          <div class="card-content">
+            <a href="{% url 'job_detail' job.id %}"><h3>{{ job.title }}</h3></a>
+            <a href="{% url 'company_overview' job.company.id %}"><p>{{ job.company.name }}</p></a>
+              <div class="meta">
+                  {% comment %} <span>👁 5 Views</span> {% endcomment %}
+                  <span>📅 {{ job.days_left}} Days Ago</span>
+              </div>
+          </div>
+      </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<!-- No Results Found Modal -->
+{% if no_results %}
+  <div id="noResultsModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <p>No jobs match your search  Please try a different keyword.</p>
+    </div>
+  </div>
+{% endif %}
+
+<!-- Pagination Controls -->
+<div class="pagination-container">
+  {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}" class="pagination-button">Previous</a>
+  {% endif %}
+
+  {% for num in page_range %}
+      {% if page_obj.number == num %}
+          <span class="pagination-button active">{{ num }}</span>
+      {% else %}
+          <a href="?page={{ num }}" class="pagination-button">{{ num }}</a>
+      {% endif %}
+  {% endfor %}
+
+
+
+  {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}{% if query %}&q={{ query }}{% endif %}" class="pagination-button">Next</a>
+  {% endif %}
+</div>
+
+
+
+{% endblock body %}

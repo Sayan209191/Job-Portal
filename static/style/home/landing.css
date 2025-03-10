@@ -1,0 +1,260 @@
+
+
+.container {
+    display: flex;
+    text-align: left;
+    /* max-width: 400px; */
+    justify-content: space-between;
+    gap: 50px;
+    height: 325px;
+    width: auto;
+    margin: 30px 50px;
+    padding: 30px 40px;
+}
+
+.grid-container-index {
+    display: grid;
+    /* flex-direction: column; */
+    gap: 10px;
+    margin-top: 20px;
+    justify-content: space-between;
+    
+    height: 250px;
+    width: 600px;
+    grid-template-columns: repeat(2, 1fr);
+
+}
+
+
+.card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    position: relative;
+    width: 250px;
+    /* hover: 0.3s; */
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+}
+
+.card img {
+    width: 30px;
+    height: 30px;
+}
+
+.card-content h2 {
+    font-size: 16px;
+    margin: 0;
+}
+
+.card-content p {
+    font-size: 12px;
+    margin: 3px 0 0;
+}
+
+.card-internships {
+    background: #75c9b7;
+    height: 100px;
+}
+
+.card-Mentorships {
+    background: aqua;
+    height: 100px;
+}
+
+.card-jobs {
+    background: #82b1ff;
+    height: 100px;
+}
+
+
+
+.card-more {
+    background: #f48fb1;
+    height: 100px;
+}
+
+
+
+
+
+.internships-section {
+    max-width: 1080px;
+    margin: 20px 150px;
+    background-color: #edf8f9;
+    padding: 1px 30px;
+    height: 285px;
+
+
+}
+
+.carousel-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    margin-top: 20px;
+    width: 1080px;
+    /* Set a fixed width */
+}
+
+.internship-container {
+    display: flex;
+    gap: 20px;
+    transition: transform 0.5s ease-in-out;
+    width: 1000px;
+    margin-left: 25px;
+    
+}
+
+.internship-card {
+    width: 200px;
+    padding: 15px;
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+    height: 110px;
+    position: relative;
+    display: inline-block;
+
+
+    /* border-radius: 10px;
+  padding: 20px;
+  width: 250px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  position: relative;
+  text-align: center;
+  display: inline-block;
+  color: white; */
+}
+/* 
+.badge {
+    background-color: white;
+    color: black;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    position: absolute;
+    margin-top: -10px;
+} */
+
+.company-logo {
+    width: 50px;
+    height: 50px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+.prev,
+.next {
+    background-color: white;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.prev {
+    left: 10px;
+    z-index: 1000;
+}
+
+.next {
+    right: 10px;
+    z-index: 1000;
+}
+
+.prev:hover,
+.next:hover {
+    background-color: lightgray;
+}
+
+.jobs-section{
+    
+    max-width: 1080px;
+    margin: 20px 150px;
+    background-color: #edf8f9;
+    padding: 1px 30px;
+    height: 285px;
+}
+
+.job-container {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    /* padding: 10px; */
+    margin-left: 25px;
+    width: 1000px;
+    /* background: #e0f2f1; */
+    border-radius: 10px;
+    /* scroll-behavior: smooth;
+    white-space: nowrap; */
+    /* width: 90%; */
+
+    /* display: flex;
+    gap: 20px;
+    transition: transform 0.5s ease-in-out;
+    width: 1000px;
+    margin-left: 25px; */
+}
+
+.job-card {
+    border-radius: 10px;
+    padding: 20px;
+    width: 190px;
+    height: 110px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: relative;
+    text-align: center;
+    display: inline-block;
+    color: white;
+}
+
+.badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(255, 255, 255, 0.3);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.job-card img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.job-title {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.company-name {
+    font-size: 14px;
+}
+
+.job-footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-top: 20px;
+}
+

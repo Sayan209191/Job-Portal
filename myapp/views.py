@@ -9,9 +9,47 @@ from .models import ContactMessage
 from django.conf import settings
 
 def index(request):
-    # Fetch the search query from the request
-    query = request.GET.get('q', '').strip()   
+    # # Fetch the search query from the request
+    # query = request.GET.get('q', '').strip()   
 
+    # if query:
+    #     # Filter jobs based on the search query (case-insensitive)
+    #     jobs = Job.objects.filter(
+    #         Q(title__icontains=query) | 
+    #         Q(company__name__icontains=query) |  
+    #         Q(skills_required__icontains=query)|
+    #         Q(job_type__icontains=query)|
+    #         Q(location__icontains=query)
+    #         # Q(company__icontains=query) 
+    #     ).order_by('-date_posted') 
+    #     no_results = jobs.count() == 0
+    # else:
+    #     jobs = Job.objects.all().order_by('-date_posted')
+    #     no_results = False
+    
+    jobs = Job.objects.all().order_by('-date_posted')  
+    for job in jobs:
+        job.days_left = ( date.today() - job.date_posted).days
+    internship_filter = Q(job_type__in=["Internship-Private", "Internship-Govt"])
+    
+    internships = Job.objects.filter(internship_filter).order_by('-date_posted')
+
+    # Calculate days left for each internship
+    for internship in internships:
+        internship.days_left = (date.today() - internship.date_posted).days
+    
+
+    context = {
+        'jobs': jobs,
+        'internships': internships,
+        # 'total_pages': total_pages,
+    }
+    
+   
+    return render(request, 'home/index.html', context)
+
+def search_results(request):
+    query = request.GET.get('q', '').strip()   
     if query:
         # Filter jobs based on the search query (case-insensitive)
         jobs = Job.objects.filter(
@@ -26,9 +64,9 @@ def index(request):
     else:
         jobs = Job.objects.all().order_by('-date_posted')
         no_results = False
-        
     for job in jobs:
         job.days_left = ( date.today() - job.date_posted).days
+        
     # Pagination: Show 16 jobs per page         
     paginator = Paginator(jobs, 16)
     page_number = request.GET.get('page', 1)
@@ -42,16 +80,14 @@ def index(request):
     end_page = min(start_page + 8, total_pages)
 
     page_range = range(start_page, end_page + 1)
-
     context = {
         'page_obj': page_obj,
         'page_range': page_range,
         'total_pages': total_pages,
     }
 
+    return render(request, 'home/job.html', context)
 
-   
-    return render(request, 'home/index.html', context)
 
 def internship(request) :
     internships = Job.objects.filter(job_type__in=["Internship-Private", "Internship-Govt"]).order_by('-date_posted') 
