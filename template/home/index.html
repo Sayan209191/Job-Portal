@@ -20,7 +20,7 @@
                 <h2>Internships</h2>
                 <p>Gain Practical Experience</p>
             </div>
-            <img src="internships-icon.png" alt="Internships">
+            <img src="{% static 'images/intership.png'%}" alt="Internships">
         </div>
 
         <div class="card-jobs">
@@ -28,19 +28,20 @@
                 <h2>Jobs</h2>
                 <p>Explore Diverse Careers</p>
             </div>
-            <img src="jobs-icon.png" alt="Jobs">
+            <img src="{% static "images/job.png" %}" alt="Jobs">
         </div>
         <div class="card-Mentorships">
             <div class="card-content">
                 <h2>Mentorships</h2>
+                <p>Get Guided by Experts</p>
             </div>
-            <img src="more-icon.png" alt="More">
+            <img src="{% static "images/mentorship.png" %}" alt="More">
         </div>
         <div class="card-more">
             <div class="card-content">
                 <h2>More</h2>
             </div>
-            <img src="more-icon.png" alt="More">
+            <img src="{% static "images/more.png" %}" alt="More">
         </div>
     </div>
 </div>
@@ -53,7 +54,7 @@
             {% for internship in internships %}
             <div class="internship-card" style="background: linear-gradient(135deg,rgb(166, 222, 235),rgb(116, 181, 228))">
                 <span class="badge">{{internship.location}}</span>
-                <img src="company-logo4.png" alt="Company Logo">
+                <img src="#" alt="Company Logo">
                 <div class="job-title"><a href="{% url 'job_detail' internship.id %}">{{ internship.title }}</a></div>
                 <div class="company-name"><a href="{% url 'company_overview' internship.company.id %}">{{ internship.company.name }}</a></div>
                 <div class="job-footer">
@@ -73,7 +74,7 @@
 
     <div class="carousel-container">
         <button class="prev" onclick="moveSlideJob(-1)">&#10094;</button>
-        <div class="internship-container">
+        <div class="job-container">
             {% for job in jobs %}
             {% comment %} <div class="internship-card" style="background: linear-gradient(135deg,rgb(166, 222, 235),rgb(116, 181, 228)));">
                 <span class="badge">{{job.location}}</span>
@@ -87,7 +88,7 @@
                     <span>📅 {{ job.days_left}} Days Ago</span>
                 </div>
             </div> {% endcomment %}
-            <div class="internship-card" style="background: linear-gradient(135deg,rgb(166, 222, 235),rgb(116, 181, 228))">
+            <div class="job-card" style="background: linear-gradient(135deg,rgb(166, 222, 235),rgb(116, 181, 228))">
                 <span class="badge">{{job.location}}</span>
                 <img src="company-logo4.png" alt="Company Logo">
                 <div class="job-title"><a href="{% url 'job_detail' job.id %}">{{ job.title }}</a></div>
