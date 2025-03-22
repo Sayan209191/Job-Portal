@@ -127,10 +127,19 @@
     margin: 20px 90px;
     background-color: #edf8f9;
     padding: 1px 30px;
-    height: 320px;
-
-
+    height: 350px;
 }
+.internship-header{
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+.internship-header-image{
+    position: absolute;
+    right: -3px;
+    top: 20px;
+}
+
 
 .carousel-container {
     display: flex;
@@ -214,7 +223,7 @@
     margin: 20px 90px;
     background-color: #edf8f9;
     padding: 1px 30px;
-    height: 320px;
+    height: 350px;
 }
 
 .job-container {
@@ -227,6 +236,16 @@
     margin-right: 24px;
 }
 
+.job-header{
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+.job-header-image{
+    position: absolute;
+    right: -3px;
+    top: 20px;
+}
 .job-card {
     width: 200px;
     padding: 15px;
