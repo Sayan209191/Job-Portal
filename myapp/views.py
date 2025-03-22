@@ -30,6 +30,7 @@ def index(request):
     jobs = Job.objects.all().order_by('-date_posted')  
     for job in jobs:
         job.days_left = ( date.today() - job.date_posted).days
+        job.views = job.days_left * 12
     internship_filter = Q(job_type__in=["Internship-Private", "Internship-Govt"])
     
     internships = Job.objects.filter(internship_filter).order_by('-date_posted')
@@ -37,6 +38,7 @@ def index(request):
     # Calculate days left for each internship
     for internship in internships:
         internship.days_left = (date.today() - internship.date_posted).days
+        internship.views = internship.days_left * 10
     
 
     context = {

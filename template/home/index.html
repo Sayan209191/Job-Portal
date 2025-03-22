@@ -66,7 +66,7 @@
             <h3>Find the Internships that fit your career aspirations.</h3>
         </div>
         <div class="internship-header-image">
-            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            <a href="internship"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
         </div>
         
     </div>
@@ -85,7 +85,7 @@
                 <br/>
                 <div class="company-name"><a href="{% url 'company_overview' internship.company.id %}">{{ internship.company.name }}</a></div>
                 <div class="job-footer">
-                    <span>&#128065; 24 Views</span>
+                    <span>&#128065; {{ internship.views  }}  Views</span>
                     <span>📅 {{ internship.days_left}} Days Ago</span>
                 </div>
             </div>
@@ -102,7 +102,7 @@
             <h3>Find the Jobs that fit your career aspirations.</h3>
         </div>
         <div class="job-header-image">
-            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            <a href="privatejob"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
         </div>
         
     </div>
@@ -118,7 +118,7 @@
                 <br/>
                 <div class="company-name"><a href="{% url 'company_overview' job.company.id %}">{{ job.company.name }}</a></div>
                 <div class="job-footer">
-                    <span>&#128065; 24 Views</span>
+                    <span>&#128065; {{job.views}}</span>
                     <span>📅 {{ job.days_left}} Days Ago</span>
                 </div>
             </div>

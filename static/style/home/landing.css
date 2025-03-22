@@ -246,6 +246,9 @@
     right: -3px;
     top: 20px;
 }
+.job-header-image a {
+    text-decoration: none;
+}
 .job-card {
     width: 200px;
     padding: 15px;
@@ -296,7 +299,7 @@
     top: 144px;
     right: 10px;
     bottom: 10px;
-    gap: 60px;
+    gap: 50px;
     left: 10px;
 }
 
