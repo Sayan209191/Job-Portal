@@ -8,6 +8,8 @@ function moveSlide(direction) {
     if (slideIndex > cards.length - 2) slideIndex = cards.length - 2;
     container.style.transform = `translateX(-${slideIndex * cardWidth}px)`;
 }
+
+
 let slideIndex2 = 0;
 function moveSlideJob(direction) {
     const container = document.querySelector(".job-container"); // Corrected selector
