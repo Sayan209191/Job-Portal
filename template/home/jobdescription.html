@@ -1,18 +1,75 @@
 {% extends 'home/base.html' %}
+{% load static %}
+{% block extra_css %}
+       
+    <link href="{% static 'style/home/jobdescription.css' %}" rel="stylesheet">
+{% endblock %}
 
 {% block body %}
+
 <div class="container">
-    <h2>{{ job.title }}</h2>
-    <h4>Company: {{ job.company.name }}</h4>
-    <p><strong>Job Type:</strong> {{ job.get_job_type_display }}</p>
-    
-    <p><strong>Description:</strong> {{ job.description }}</p>
-    <p><strong>Skills Required:</strong> {{ job.skills_required }}</p>
-    <p><strong>Location:</strong> {{ job.location }}</p>
-    <p><strong>Date Posted:</strong> {{ job.date_posted|date:"F d, Y" }}</p>
-    <p><strong>Experience Required:</strong> {{ job.experience_required }}</p>
-    <a href="{{ job.application_link }}" target="_blank">
-        <button class="apply-button">Apply</button>
-    </a>
+    <!-- Job Details Section (Scrollable) -->
+    <div class="job-details">
+        <div class="job-header">
+            {% comment %} <img src="company-logo.png" alt="Company Logo" class="company-logo"> {% endcomment %}
+            <h1>{{ job.title }}</h1>
+            <p><strong>{{ job.company.name }}</strong></p>
+            <p>{{ job.location }}</p>
+            <p>Updated On: Mar 8, 2025</p>
+        </div>
+
+        <h2>Job Description</h2>
+        <p>{{ job.description }}</p>
+        <h3>Details</h3>
+        <div class="info">
+            <h4>Additional Information</h4>
+            <div class="info-grid">
+                <div class="info-box">
+                    <p><span class="label">Required Skill</span></p>
+                    <p>{{ job.skills_required }}</p>
+                </div>
+                <div class="info-box">
+                    <p><span class="label">Experience:</span></p>
+                    <p>{{ job.experience_required }}</p>
+                </div>
+                {% comment %} <div class="info-box">
+                    <p><span class="label">Working Days:</span></p>
+                    <p>5 Days</p>
+                </div> {% endcomment %}
+                <div class="info-box">
+                    <p><span class="label">Job Location</span></p>
+                    <p>{{ job.location }}</p>
+                </div>
+                <div class="info-box">
+                    <p><span class="label">Job Type</span></p>
+                    <p>{{job.job_type}}</p>
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+
+    <!-- Fixed Apply Button Section -->
+    <div class="apply-container">
+        <div class="apply-section">
+            <a href="{{ job.application_link }}" target="_blank"><button class="apply-btn" id="applyBtn">Quick Apply</button></a>
+            {% comment %} <p><strong>Applied:</strong> 314</p>
+            <p><strong>Impressions:</strong> 20,031</p> {% endcomment %}
+            <p><strong>Eligibility:</strong> {{job.experience_required}}</p>
+           
+        </div>
+        <div class="job-steps">
+            <h2>Get Your Dream Job 3 Simple Steps:</h2>
+            <ul>
+                <li>📌 Apply for Job</li>
+                <li>📝 Create Profile</li>
+                <li>📅 Schedule Interview</li>
+                <li>🚀 Get Hired</li>
+            </ul>
+        </div>
+
+        
+    </div>
 </div>
 {% endblock %}
