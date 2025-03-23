@@ -7,7 +7,7 @@
 
 {% block body %}
 
-<div class="container">
+<div class="job-container">
     <!-- Job Details Section (Scrollable) -->
     <div class="job-details">
         <div class="job-header">
@@ -29,7 +29,7 @@
                     <p>{{ job.skills_required }}</p>
                 </div>
                 <div class="info-box">
-                    <p><span class="label">Experience:</span></p>
+                    <p><span class="label">Experience</span></p>
                     <p>{{ job.experience_required }}</p>
                 </div>
                 {% comment %} <div class="info-box">
@@ -37,13 +37,14 @@
                     <p>5 Days</p>
                 </div> {% endcomment %}
                 <div class="info-box">
-                    <p><span class="label">Job Location</span></p>
-                    <p>{{ job.location }}</p>
-                </div>
-                <div class="info-box">
                     <p><span class="label">Job Type</span></p>
                     <p>{{job.job_type}}</p>
                 </div>
+                <div class="info-box">
+                    <p><span class="label">Job Location </span></p>
+                    <p>{{ job.location }}</p>
+                </div>
+                
             </div>
         </div>
         
@@ -56,6 +57,7 @@
             <a href="{{ job.application_link }}" target="_blank"><button class="apply-btn" id="applyBtn">Quick Apply</button></a>
             {% comment %} <p><strong>Applied:</strong> 314</p>
             <p><strong>Impressions:</strong> 20,031</p> {% endcomment %}
+            <br/>
             <p><strong>Eligibility:</strong> {{job.experience_required}}</p>
            
         </div>
