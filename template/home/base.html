@@ -16,6 +16,7 @@
     <script src="{% static 'js/home/searchsuggestions.js' %}"></script> 
     <script src="{% static 'js/home/script.js' %}"></script>
     <script src="{% static 'js/home/carousel.js' %}"></script> 
+    {% block extra_js %}{% endblock extra_js %}
     
 </head>
 
@@ -29,15 +30,15 @@
                 <li>
                     <a href="#">Jobs</a>
                     <div class="dropdown-content">
-                        <a href="privatejob">Private</a>
+                        <a href="{% url 'privatejob'%}">Private</a>
                         <a href="#">Government</a>
-                        <a href="RemoteJob">Remote</a>
+                        <a href="{% url 'Remotejob'%}">Remote</a> 
                     </div>
                 </li>
                 <li>
                     <a href="#">Internships</a>
                     <div class="dropdown-content">
-                        <a href="internship">Engineering</a>
+                        <a href="{% url 'internship'%}">Engineering</a>  
                         <a href="#">Marketing</a>
                         <a href="#">Design</a>
                     </div>
@@ -96,8 +97,8 @@
         <div class="footer-container">
             <div class="footer-links">
                 <ul>
-                    <li><a href="/aboutus">About Us</a></li>
-                    <li><a href="/contact-us">Contact Us</a></li>
+                    <li><a href="{% url 'aboutus'%}">About Us</a></li>
+                    <li><a href="{% url 'contact-us'%}">Contact Us</a></li>
                     <li><a href="#">Terms of Service</a></li>
                     <li><a href="#">Privacy Policy</a></li>
                 </ul>

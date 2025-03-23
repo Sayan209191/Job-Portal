@@ -5,16 +5,6 @@
     
     <div class="grid-item">
       <div class="job-card">
-        <!-- <a href="{% url 'job_detail' job.id %}"><h2 class="job-title">{{ job.title }}</h2></a>
-        <a href="{% url 'company_overview' job.company.id %}"><p class="company-name">{{ job.company.name }}</p></a>
-        {% comment %} <p>Debug: Application Link - {{ job.application_link }}</p> {% endcomment %}
-        {% comment %} {% if job.application_url == "" %} {% endcomment %}
-        <a href="{{ job.application_link }}" target="_blank">
-          <button class="apply-button">Apply</button>
-        </a>
-        {% comment %} {% else %}
-          <span class="apply-button disabled">Application CLose</span>
-        {% endif %} {% endcomment %} -->
         <div class="card" style="background: linear-gradient(135deg, #6A5ACD, #9370DB);">
           <div class="card-header">
               <span class="tag">{{job.location}}</span>

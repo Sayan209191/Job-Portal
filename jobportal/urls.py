@@ -10,6 +10,4 @@ urlpatterns = [
     path('', include('myapp.urls')), 
 
     # path('job/', include('jobs.url')) 
-]
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #/media/ -> media root URl

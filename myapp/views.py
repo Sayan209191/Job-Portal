@@ -172,9 +172,6 @@ def contactus(request) :
             recipient_list=[email],
             fail_silently=False,
         )
-
-        # Redirect to a thank-you page
-        # --- make the than you page
         return redirect('/')
 
     # Render the contact form page

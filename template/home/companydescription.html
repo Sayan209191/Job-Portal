@@ -1,37 +1,79 @@
 {% extends 'home/base.html' %}
+{% load static %}
+{% block extra_css %}
+       
+     <link href="{% static 'style/home/companydescription.css' %}" rel="stylesheet">
+{% endblock %}
+{% block extra_js %}
+<script src="{% static 'js/home/toogle.js' %}"></script>{% endblock %}
 
 {% block body %}
-<div class="container">
-    <div class="company-header">
-        <h2>{{ company.name }}</h2>
-        {% if company.logo %}
-            <img src="{{ company.logo.url }}" alt="{{ company.name }}" width="150">
-        {% endif %}
-        
-        <p><strong>Location:</strong> {{ company.location }}</p>
-        <p><strong>About:</strong> {{ company.description }}</p>
-        <p><strong>Total Job Openings:</strong> {{ jobs.count }}</p>
-    </div>
 
-    <h3>Current Job Openings</h3>
-    <div class="grid-item">
+<div class="header-container">
+  <div class="comapny-details">
+    <div class="company-logo">
+      <img src="{{company.logo_url}}" alt="Comapny_logo">
+    </div>
+    <div class="company-links">
+      <div class="companyurl">
+        <h1>{{ company.name }}</h1>
+       {% comment %} <p>{{ company.industry }}</p> {% endcomment %}
+      
+        <a href="{{company.website}}" target="_blank">Website</a>
+      </div>
+      <div class="company-social">
+        <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+    
+  </div>
+  
+  
+</div>
+
+<main>
+  <div class="company-description">
+    <button class="nav-link active" data-section="about">About</button>
+    {% comment %} <button class="nav-link" data-section="culture">Culture & Values</button> {% endcomment %}
+    <button class="nav-link" data-section="opportunities">Opportunities</button>
+  </div>
+  <section id="about" class="content-section active">
+      <h2>About {{ company.name }}</h2>
+      <p>{{company.description}}</p>
+      <h3>Location : {{company.location}}</h3>
+      <p>Mobile : {{company.mobile_number}}</p>
+  </section>
+
+  <section id="opportunities" class="content-section">
+      <h2>Opportunities</h2>
+      <p>{{ company.name }}offers numerous career opportunities ...</p>
+      <h3>Current Job Openings</h3>
+      <div class="grid-container">
         {% for job in jobs %}
-        <div class="job-card">
-          <a href="{% url 'job_detail' job.id %}"><h2 class="job-title">{{ job.title }}</h2></a>
-          <p class="company-name">{{ job.company.name }}</p> 
-          {% comment %} <p>Debug: Application Link - {{ job.application_link }}</p> {% endcomment %}
-          {% comment %} {% if job.application_url == "" %} {% endcomment %}
-          <a href="{{ job.application_link }}" target="_blank">
-            <button class="apply-button">Apply</button>
-          </a>
-          {% comment %} {% else %}
-            <span class="apply-button disabled">Application CLose</span>
-          {% endif %} {% endcomment %}
+        <div class="grid-item">
+          <div class="job-card">
+            <div class="card" style="background: linear-gradient(135deg, #6A5ACD, #9370DB);">
+              <div class="card-header">
+                  <span class="tag">{{job.location}}</span>
+                  {% comment %} <img src="g4s_logo.png" alt="G4S"> {% endcomment %}
+              </div>
+              <div class="card-content">
+                <a href="{% url 'job_detail' job.id %}"><h3>{{ job.title }}</h3></a>
+                {% if job.application_url != "" %}
+                  <a href="{{ job.application_link }}" target="_blank">
+                    <button class="apply-button">Apply</button>
+                  </a>
+                {% endif %}
+          
+              </div>
+          </div>
+          </div>
         </div>
-        {% comment %} {% empty %}
-            <p>No job openings available.</p>
-        {% endfor %} {% endcomment %}
         {% endfor %}
       </div>
-</div>
+  </section>
+</main>
 {% endblock %}
