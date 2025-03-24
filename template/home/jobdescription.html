@@ -4,6 +4,9 @@
        
     <link href="{% static 'style/home/jobdescription.css' %}" rel="stylesheet">
 {% endblock %}
+{% comment %}  {% block extra_js %} {% endcomment %}
+{% comment %} <script src="{% static 'js/home/jobdescription.js' %}"></script>{% endblock %} {% endcomment %}
+{% comment %}{% endblock %} {% endcomment %}
 
 {% block body %}
 
@@ -14,8 +17,8 @@
             {% comment %} <img src="company-logo.png" alt="Company Logo" class="company-logo"> {% endcomment %}
             <h1>{{ job.title }}</h1>
             <p><strong>{{ job.company.name }}</strong></p>
-            <p>{{ job.location }}</p>
-            <p>Updated On: Mar 8, 2025</p>
+            <p><strong>Location :  </strong> {{ job.location }}</p>
+            <p><strong>Update On : </strong>{{job.date_posted}}</p>
         </div>
 
         <h2>Job Description</h2>
@@ -57,7 +60,10 @@
             <a href="{{ job.application_link }}" target="_blank"><button class="apply-btn" id="applyBtn">Quick Apply</button></a>
             {% comment %} <p><strong>Applied:</strong> 314</p>
             <p><strong>Impressions:</strong> 20,031</p> {% endcomment %}
-            <br/>
+
+            {% comment %} <a href="{{ job.application_link }}" class="apply-btn" id="applyBtn" data-job-id="{{ job.id }}"><button>Quick Apply</button>
+</a>
+            <br/> {% endcomment %}
             <p><strong>Eligibility:</strong> {{job.experience_required}}</p>
            
         </div>

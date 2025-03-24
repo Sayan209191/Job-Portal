@@ -7,7 +7,7 @@ from django.db.models import Q
 from django.core.mail import send_mail
 from .models import ContactMessage
 from django.conf import settings
-
+from django.views.decorators.csrf import csrf_exempt 
 def index(request):
     # # Fetch the search query from the request
     # query = request.GET.get('q', '').strip()   
@@ -30,7 +30,8 @@ def index(request):
     jobs = Job.objects.all().order_by('-date_posted')  
     for job in jobs:
         job.days_left = ( date.today() - job.date_posted).days
-        job.views = job.days_left * 12
+        job.views += 1
+        job.save()
     internship_filter = Q(job_type__in=["Internship-Private", "Internship-Govt"])
     
     internships = Job.objects.filter(internship_filter).order_by('-date_posted')
@@ -38,7 +39,8 @@ def index(request):
     # Calculate days left for each internship
     for internship in internships:
         internship.days_left = (date.today() - internship.date_posted).days
-        internship.views = internship.days_left * 10
+        # internship.views += 1
+        internship.save()
     
 
     context = {
@@ -51,7 +53,10 @@ def index(request):
     return render(request, 'home/index.html', context)
 
 def search_results(request):
-    query = request.GET.get('q', '').strip()   
+    query = request.GET.get('q', '').strip() 
+    company = Company.objects.filter(name__icontains=query).first()
+    if company:
+        return redirect('company_overview', company_id=company.id)  
     if query:
         # Filter jobs based on the search query (case-insensitive)
         jobs = Job.objects.filter(
@@ -83,6 +88,7 @@ def search_results(request):
 
     page_range = range(start_page, end_page + 1)
     context = {
+        'query': query,
         'page_obj': page_obj,
         'page_range': page_range,
         'total_pages': total_pages,
@@ -220,10 +226,23 @@ def search_suggestions(request):
     if query:
         jobs = Job.objects.filter(
             Q(title__icontains=query) | 
-            Q(company__name__icontains=query) |
             Q(skills_required__icontains=query)
         ).distinct()[:10]  # Limit results to 10 suggestions
-
-        suggestions = list(jobs.values_list('title', flat=True))  # Get only job titles
+        company = Company.objects.filter(name__icontains=query).order_by("name").first()
+        if company:
+            suggestions.append(company.name)
+        if jobs:
+            suggestions = list(jobs.values_list('title', flat=True))
+          
 
     return JsonResponse({'suggestions': suggestions})
+
+@csrf_exempt  # REMOVE THIS LATER, just for testing CSRF issues
+def track_application(request, job_id):
+    if request.method == "POST":
+        job = get_object_or_404(Job, id=job_id)
+        job.application += 1  # Increment application count
+        job.save()
+        return JsonResponse({"success": True, "applications": job.application})
+
+    return JsonResponse({"success": False}, status=400)

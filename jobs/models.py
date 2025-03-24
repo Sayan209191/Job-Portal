@@ -11,6 +11,10 @@ class Company(models.Model) :
     mobile_number = models.CharField(max_length=15, blank=True, null=True)
     email_address = models.EmailField(blank=True, null=True)
     logo_url = models.URLField(blank=True, null=True)
+    linkedin_url = models.URLField(blank=True, null=True)
+    facebook_url = models.URLField(blank=True, null=True)
+    twitter_url = models.URLField(blank=True, null=True)
+    instagram_url = models.URLField(blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -31,6 +35,9 @@ class Job(models.Model):
     location = models.CharField(max_length=255)
     date_posted = models.DateField()
     experience_required = models.CharField(max_length=100, null=True, blank=True)
+    views = models.IntegerField(default=0)
+    salary = models.CharField(max_length=100, null=True, blank=True)
+    application_count = models.IntegerField(default=0)
     application_link = models.URLField(blank=True, null=True)
 
     def __str__(self):
