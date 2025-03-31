@@ -117,7 +117,7 @@ DATABASES = {
         'NAME': 'jobportal',
         'USER' : 'testuser',
         'PASSWORD' : 'Sayan@1234',
-        'HOST' : '192.168.254.202', #192.168.84.202 #192.168.146.202
+        'HOST' : '192.168.1.4', #192.168.84.202 #192.168.146.202
         'PORT' : '3306',
         'OPTIONS': {
             'charset': 'utf8mb4',
