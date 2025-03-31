@@ -108,7 +108,9 @@ a:hover {
     border-radius: 5px;
     cursor: pointer;
 }
-
+.google-btn a {
+    text-decoration: none;
+}
 .google-btn img {
     width: 27px;
     height: 27px;
