@@ -100,6 +100,9 @@ JOBPORTAL/
 - **Job Apply Feature**: Allow users to apply directly.
 - **Admin Panel Enhancements**: More job posting controls.
 - **Better UI/UX Improvements**.
+- **Save or Bookmark Jobs**.
+- **Dashboard For User**.
+- **Notification System**.
 
 ## Contributors
 
