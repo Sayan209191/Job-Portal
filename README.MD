@@ -74,8 +74,9 @@ JOBPORTAL/
 │-- accounts/              # User authentication
 │-- jobportal/             # Main Django project folder
 │-- jobs/                  # Job-related features
+|-- blog/                  # Blog/Article feature
 │-- media/                 # Uploaded images/files
-│-- myapp/                 # Additional app (if needed)
+│-- myapp/                 # Additional Helper app 
 │-- static/                # Static files (CSS, JS, Images)
 │-- template/              # HTML templates
 │-- manage.py              # Django management script
@@ -91,6 +92,8 @@ JOBPORTAL/
 | `/auth/signup`         | POST   | User Signup                   |
 | `/auth/login`          | POST   | User Login                    |
 | `/company/<id>`        | GET    | View company profile          |
+|`/blog/`                |  GET   |    View blog list             |
+|`/blog/create/'         | POST   |  Create a new blog post       |
 
 ## To-Do / Future Enhancements
 
