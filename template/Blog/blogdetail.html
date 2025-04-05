@@ -1,0 +1,7 @@
+{% extends 'home/base.html' %}
+{% block body %}
+  <h2>{{ blog.title }}</h2>
+  <p>By {{ blog.author.username }} | {{ blog.created_at }}</p>
+  <hr>
+  <p>{{ blog.content }}</p>
+{% endblock %}

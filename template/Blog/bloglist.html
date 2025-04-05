@@ -1,0 +1,15 @@
+{% extends 'home/base.html' %}
+{% block body %}
+  <h2>Latest Blogs</h2>
+  <a href="{% url 'create_blog' %}">Write a Blog</a>
+  <ul>
+    {% for blog in blogs %}
+      <li>
+        <h3><a href="{% url 'blog_detail' blog.id %}">{{ blog.title }}</a></h3>
+        <p>By {{ blog.author.username }} | {{ blog.created_at }}</p>
+      </li>
+    {% empty %}
+      <li>No blogs available.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

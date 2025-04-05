@@ -8,6 +8,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),  # For Google sign-in and other allauth functionalities
     path('auth/', include('accounts.urls')),      # For your custom sign-in, sign-up, logout views
     path('', include('myapp.urls')), 
+    path('blog/', include('blog.urls')),
 
     # path('job/', include('jobs.url')) 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #/media/ -> media root URl
