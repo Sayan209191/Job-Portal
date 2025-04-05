@@ -93,7 +93,7 @@ JOBPORTAL/
 | `/auth/login`          | POST   | User Login                    |
 | `/company/<id>`        | GET    | View company profile          |
 |`/blog/`                |  GET   |    View blog list             |
-|`/blog/create/'         | POST   |  Create a new blog post       |
+|`/blog/create/`         | POST   |  Create a new blog post       |
 
 ## To-Do / Future Enhancements
 
