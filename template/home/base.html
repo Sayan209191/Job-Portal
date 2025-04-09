@@ -43,6 +43,14 @@
                         <a href="#">Design</a>
                     </div>
                 </li>
+                <li>
+                    <a href = "#">Blog</a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'blog_list'%}">All Blogs</a>  
+                        <a href="{% url 'create_blog'%}">Write New Blog</a>
+                        
+                    </div>
+                </li>
             </ul>
         </nav>
         <div class="search-bar">
