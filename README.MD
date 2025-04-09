@@ -93,13 +93,16 @@ JOBPORTAL/
 | `/auth/login`          | POST   | User Login                    |
 | `/company/<id>`        | GET    | View company profile          |
 |`/blog/`                |  GET   |    View blog list             |
-|`/blog/create/'         | POST   |  Create a new blog post       |
+|`/blog/create/`         | POST   |  Create a new blog post       |
 
 ## To-Do / Future Enhancements
 
 - **Job Apply Feature**: Allow users to apply directly.
 - **Admin Panel Enhancements**: More job posting controls.
 - **Better UI/UX Improvements**.
+- **Save or Bookmark Jobs**.
+- **Dashboard For User**.
+- **Notification System**.
 
 ## Contributors
 
