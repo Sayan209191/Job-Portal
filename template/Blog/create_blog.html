@@ -1,9 +1,30 @@
 {% extends 'home/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block extra_css %}
+<link href="{% static 'style/blog/style.css' %}" rel="stylesheet">
+{% endblock extra_css %}
 {% block body %}
-  <h2>Write a New Blog</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Publish</button>
-  </form>
+<div class="createblog" >
+  <div class="createblogheader">
+    <h2>📝 Write a New Blog</h2>
+    <form method="post">
+      {% csrf_token %}
+      
+      <div class="formgruoptitle">
+        <label for="id_title" class="form-label">Title</label>
+        {{ form.title|add_class:"form-control" }}
+      </div>
+      
+      <div class="formgroupcontent">
+        <label for="id_content" class="form-label">Content</label>
+        {{ form.content|add_class:"form-control" }}
+      </div>
+      
+      <div class="formgroupsubmit">
+        <button type="submit" class="btn btn-primary px-4">🚀 Publish</button>
+      </div>
+    </form>
+  </div>
+</div>
 {% endblock %}
