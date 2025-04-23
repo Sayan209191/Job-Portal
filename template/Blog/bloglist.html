@@ -1,15 +1,26 @@
 {% extends 'home/base.html' %}
+{% load static %}
+{% block extra_css %}
+<link href="{% static 'style/blog/style.css' %}" rel="stylesheet">
+{% endblock extra_css %}
 {% block body %}
-  <h2>Latest Blogs</h2>
-  <a href="{% url 'create_blog' %}">Write a Blog</a>
-  <ul>
-    {% for blog in blogs %}
-      <li>
-        <h3><a href="{% url 'blog_detail' blog.id %}">{{ blog.title }}</a></h3>
-        <p>By {{ blog.author.username }} | {{ blog.created_at }}</p>
-      </li>
-    {% empty %}
-      <li>No blogs available.</li>
-    {% endfor %}
-  </ul>
+
+<div class="header">Latest Blogs</div>
+<div class="top-links">
+  <a href="{% url 'create_blog' %}" class="floating-blog-button">✎ Write a Blog</a>
+</div>
+
+<div class="blog-grid" id="blogGrid">
+  {% for blog in blogs %}
+  <div class="blog-item">
+    <div class="blog-header">
+      <h3><a href="{% url 'blog_detail' blog.id %}">{{ blog.title }}</a></h3>
+    </div>
+    <p>By {{ blog.author.username }} | {{ blog.created_at }}</p>
+  </div>
+  {% empty %}
+  <p>No blogs available.</p>
+  {% endfor %}
+</div>
+  
 {% endblock %}

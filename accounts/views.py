@@ -62,7 +62,7 @@ def handlelogin(request):
         if user is not None:
             login(request, user)
             messages.success(request, "Login Successful")
-            return redirect('/')  # Redirect to the homepage or dashboard
+            return redirect('/')  # Redirect to the homepage
         else:
             messages.error(request, "Invalid Credentials")
             return redirect('/auth/login')
