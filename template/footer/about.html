@@ -1,42 +1,70 @@
+{% extends 'home/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
+{% block extra_css %}
+<link href="{% static 'style/footer/about.css' %}" rel="stylesheet">
+{% endblock extra_css %}
+{% block extra_js %}
+<script src="{% static 'js/home/footer/script.js' %}"></script>
+{% endblock %}
+{% block body %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us</title>
-    <link href="{% static 'style/footer/about.css' %}" rel="stylesheet">
-</head>
 
-<body>
-    <div class="navbar">
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/aboutus">About Us</a></li>
-        </ul>
+<div class="content-wrapper-about">
+
+    <div class="section-about">
+        <div class="text">
+            <h1>About Your Career</h1>
+            A comprehensive job portal that connects job seekers with opportunities in private, government, and international sectors.
+            Provides a dedicated section for students and fresh graduates to find internships and industrial training programs.
+            Uses AI-driven recommendations to match users with relevant job listings based on their skills, experiences, and preferences.
+            Offers advanced filters for sector, location, salary, and job type to simplify job searching.
+        </div>
+        <div class="image-about">
+            <img src="{% static 'images/about.jpg' %}" alt="about" />
+            
+            
+        </div>
     </div>
-    <div class="about-section">
-        <h1>About Us</h1>
-        <p>
-            In today's competitive job market, graduates are encountering enormous challenges while their transition
-            from education to employment. Most of the existing platforms do not provide access to a wide array of job
-            opportunities comprehensively. This limitation spans both the private and government sectors, as well as
-            international employment avenues. Additionally, there is insufficient support for students seeking
-            internships and industrial training. Develop a user-friendly interface accessible via web applications.
-            Ensure the platform supports various user profiles, including job seekers, employers allow users to create
-            detailed profiles highlighting their skills, experiences, and career goals. Ensure the platform includes
-            opportunities from private, government, and overseas sectors. Include filters and search options for users
-            to find jobs according to sector, location, and other preferences. Create a dedicated section for
-            internships and industrial training opportunities.The platform streamlines job and internship searches by
-            centralizing listings for government, private, and internship opportunities, saving students time and
-            effort. Students can access a comprehensive range of opportunities in one place without visiting multiple
-            sources. For recruiters, the platform offers direct access to candidates who best match their requirements
-            based on detailed student profiles, enhancing efficiency in finding suitable talent. This integration not
-            only simplifies the job search process for students but also optimizes recruitment for employers.
-        </p>
 
+    <div class="section-about-reverse">
+        <div class="text">
+            <h2>Our People</h2>
+            Empowers students, professionals, and job seekers by providing them with a centralized platform for career growth.
+            Supports employers and recruiters by offering a highly skilled talent pool and AI-powered applicant tracking.
+            Builds a collaborative community through mentorship programs, webinars, and networking events.
+            Encourages users to create detailed profiles showcasing their skills,certifications,and career goals.
+            <button class="aboutbtn"><a href="#">Click Here</a></button>
+        </div>
+        <div class="image-about">
+            <img src="{% static 'images/Our people.jpg' %}" alt="People" />
+        </div>
     </div>
-</body>
 
-</html>
+    <div class="section-about">
+        <div class="text">
+            <h3>Our Leadership</h3>
+            Committed to bridging the gap between education and employment by providing an accessible and efficient job search platform.
+            Uses cutting-edge technology, including AI and data analytics, to enhance job matching and recruitment.
+            Promotes equal opportunities for candidates across diverse backgrounds and industries.
+            Partners with universities, industries, and organizations to ensure a smooth transition from education to employment.
+        </div>
+        <div class="image-about">
+            <img src="{% static 'images/Our Leadership jpg.webp' %}" alt="Leadership" />
+        </div>
+    </div>
+
+    <div class="section-about-reverse">
+        <div class="text">
+            <h4>Our Commitments</h4>
+            Ensures seamless access to job, internship, and training opportunities for students and professionals.
+            Enhances career development through resume-building tools, interview preparation, and career counseling.
+            Optimizes the hiring process for employers by providing pre-filtered, high-quality candidates.
+            Prioritizes user-friendly navigation, security, and scalability to deliver the best experience for all users.
+        </div>
+        <div class="image-about">
+            <img src="{% static 'images/our communities.jpg' %}" alt="Commitments" />
+        </div>
+    </div>
+
+</div>
+{%endblock%}
