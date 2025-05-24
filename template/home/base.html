@@ -79,18 +79,18 @@
             <div class="dropdown-content">
                 <a href="{% url 'profile_view' %}">View Profile</a>
                 <a href="#">Settings</a>
-                <a href="auth/logout/">Logout</a>
+                <a href="{% url 'logout'%}">Logout</a>  
             </div>
         </div>
         {% else %}
         <!-- When user is not logged in, show login and register buttons -->
         <div class="login-register">
-            <a href="auth/login" class="btn-link">
+            <a href="{% url 'login'%}" class="btn-link">
                 <button type="button" class="login btn-login">
                     Login
                 </button>
             </a>
-            <a href="auth/signup" class="btn-link">
+            <a href="{% url 'signup'%}" class="btn-link">
                 <button type="button" class="register btn-register">
                     Register
                 </button>
