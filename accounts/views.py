@@ -162,19 +162,21 @@ class SetNewPasswordView(View):
 # View Profile
 @login_required
 def profile_view(request):
-    user_profile, created = UserProfile.objects.get_or_create(user=request.user)
-    return render(request, 'account/profile-view.html', {'user_profile': user_profile})
+    # user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+    # return render(request, 'account/profile-view.html', {'user_profile': user_profile})
+    return render(request, 'account/profile-view.html')
 
 # Edit Profile
 @login_required
 def profile_edit(request):
-    user_profile, created = UserProfile.objects.get_or_create(user=request.user)
-    if request.method == 'POST':
-        form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
-        if form.is_valid():
-            form.save()
-            return redirect('profile_view')
-    else:
-        form = UserProfileForm(instance=user_profile)
+    # user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+    # if request.method == 'POST':
+    #     form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
+    #     if form.is_valid():
+    #         form.save()
+    #         return redirect('profile_view')
+    # else:
+    #     form = UserProfileForm(instance=user_profile)
 
-    return render(request, 'account/edit-profile.html', {'form': form})
+    # return render(request, 'account/edit-profile.html', {'form': form})
+    return render(request, 'account/edit-profile.html')

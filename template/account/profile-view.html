@@ -1,60 +1,176 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ user_profile.name }}'s Profile</title>
-    <link rel="stylesheet" href="{% static 'style/accounts/profile.css' %}">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  {% comment %} <title>{{ user_profile.name }}'s Profile</title> {% endcomment %}
+  <link rel="stylesheet" href="{% static 'style/accounts/profile.css' %}">
+  <script src="index.js"></script>
+  <script src="{% static 'js/account/script.js' %}"></script> 
 </head>
+
 <body>
-    <div class="container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="#" class="active">Profile</a></li>
-                <li><a href="{% url 'profile_edit' %}">Edit Profile</a></li>
-                <li><a href="#">Notification</a></li>
-            </ul>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="profile-summary">
+        <div class="avatar">C</div>
+        <div class="email">chayansamanta64@gmail.com</div>
+        <a href="#" class="add-responsibility">Add Responsibility</a>
+      </div>
+      <nav>
+        <ul>
+          <li>Registrations/Applications</li>
+          <li>Save Job</li>
+          <li>Recently Viewed</li>
+          <li>Certificates</li>
+          <li>Carrier Coins</li>
+          <li>Settings</li>
+        </ul>
+      </nav>
+      <div class="organizers">
+        <h4>Organizers</h4>
+        <ul>
+          <li>Account Settings</li>
+        </ul>
+        <button class="logout-btn">Logout</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <div class="cover-header"></div>
+      <section class="profile-info">
+        <div class="profile-header">
+          <div class="avatar-large">C</div>
+          <div>
+            <h1>Chayan Samanta</h1>
+            <p>@chaysam3805</p>
+            <p>Brainware University</p>
+            <a href="#">Resume</a>
+          </div>
+          <a href="{% url "profile_edit" %}"><button class="edit-profile">Edit Profile</button></a>
+          {% comment %} <a href="{% url "profile_edit" %}"> </a> {% endcomment %}
         </div>
 
-        <!-- Profile Picture in Top-Right Corner -->
-        <div class="profile-picture-container">
-            {% if user_profile.profile_picture %}
-            <img src="{{ user_profile.profile_picture.url }}" alt="{{ user_profile.name }}'s Profile Picture">
-            {% else %}
-            <img src="{% static 'images/default-profile.png' %}" alt="Default Profile Picture">
-            {% endif %}
-            <a href="{% url 'profile_edit' %}">Change Picture</a>
-        </div>
+        <section class="about">
+          <h2>About</h2>
+          <p> </p>
+        </section>
 
-        <!-- Profile Details -->
-        <div class="content">
-            <form class="profile-form">
-                <div class="form-group">
-                    <label for="address">Address:</label>
-                    <input type="text" id="address" value="{{ user_profile.address }}" disabled>
-                </div>
-                <div class="form-group">
-                    <label for="mobile_number">Mobile Number:</label>
-                    <input type="text" id="mobile_number" value="{{ user_profile.mobile_number }}" disabled>
-                </div>
-                <div class="form-group">
-                    <label for="skills">Skills:</label>
-                    <input type="text" id="skills" value="{{ user_profile.skills }}" disabled>
-                </div>
-                {% if user_profile.resume %}
-                <div class="form-group">
-                    <label>Resume:</label>
-                    <a href="{{ user_profile.resume.url }}" target="_blank" class="btn view-resume-btn">View Resume</a>
-                </div>
-                {% endif %}
-                <div class="form-buttons">
-                    <a href="{% url 'profile_edit' %}" class="btn edit-profile-btn">Edit Profile</a>
-                </div>
-            </form>
+        <section class="resume">
+          <h2>Resume</h2>
+          <a href="#">Chayan Samanta-resume</a>
+        </section>
+
+        <section class="skills">
+          <h2>Skills</h2>
+          <span class="tag">Performance Management</span>
+        </section>
+
+        <section class="work-exp">
+          <h2>Work Experience</h2>
+          <a href="#">Add Work Experience</a>
+        </section>
+
+        <section class="education">
+          <h2>Education</h2>
+          <p><strong>Brainware University</strong></p>
+          <p>Pursuing BTech in Computer Science and Engineering (2021 - Expected 2025)</p>
+          <p>Specialization: Computer Science and Engineering</p>
+          <p>Percentage: 76% | CGPA: 8</p>
+        </section>
+
+        <section class="responsibility">
+          <h2>Responsibilities</h2>
+          <a href="#">Add Responsibility</a>
+        </section>
+
+        <section class="certificate">
+          <h2>Certificate</h2>
+          <a href="#">Add Certificate</a>
+        </section>
+      </section>
+
+      <div class="middle-container">
+        <section class="projects">
+          <h2>Projects</h2>
+          <div class="project-item">
+            <img src="project-icon.png" alt="Project Icon" />
+            <div>
+              <strong>JOB PORTAL</strong>
+              <p>#️⃣ Job Portal Project: Developed a comprehensive platform for job seekers and recruiters...</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="achievements">
+          <h2>Achievements</h2>
+          <p>Broadcast your triumphs and make a remarkable impression on industry leaders!</p>
+          <a href="#">Add Achievement</a>
+        </section>
+
+        <section class="personal-details">
+          <h2>Personal Details</h2>
+          <p>-- Edit your personal info here --</p>
+        </section>
+
+        <section class="social-links">
+          <h2>Social Links</h2>
+          <div class="icons">
+            <i class="fab fa-facebook-f"></i>
+            <i class="fab fa-instagram"></i>
+            <i class="fab fa-linkedin-in"></i>
+          </div>
+        </section>
+
+        <section class="streaks">
+          <h2>Streaks</h2>
+          <div class="calendar-placeholder" id="calendar"></div>
+          <p>Activity: <span class="legend"></span> <span class="legend mid"></span> <span class="legend high"></span></p>
+          <p>Current Streak: <strong>1 Days</strong> &nbsp;&nbsp; Max Streak: <strong>3 Days</strong></p>
+        </section>
+      </div>
+    </main>
+
+    <div class="right-panel">
+      <div class="create-resume-box">
+        <button class="create-resume">📄 Create your Resume</button>
+        <div class="profile-views">0 Profile Views</div>
+        <div class="engagement-tip">
+          🚀 Increase your profile Engagement by 3X by filling all the details
         </div>
+      </div>
+
+      {% comment %} <div class="accomplishments">
+        <details>
+          <summary>Accomplishments</summary>
+          <p>No accomplishments added yet.</p>
+        </details>
+      </div> {% endcomment %}
+
+      <div class="ranking">
+        {% comment %} <h4>Rankings <a href="#">How it works?</a></h4> {% endcomment %}
+        <h4>Rankings </h4>
+        <div class="ranking-box">
+          <p><strong>Global Rank</strong><br>Based on activity</p>
+          <h3>#67062</h3>
+          <button>View Leaderboard</button>
+          <p>Total Points: <strong>12620</strong></p>
+          <p>Total Badges: <strong>3</strong> <span style="color: green;">+6</span></p>
+        </div>
+      </div>
+
+      <div class="Carrier-Coin">
+        <h4>Carrier Coins </h4>
+        {% comment %} <h4>Carrier Coins <a href="#">How it works?</a></h4> {% endcomment %}
+        <div class="unstop-coins-box">
+          🪙 162 Coins
+        </div>
+      </div>
     </div>
+  </div>
 </body>
+
 </html>
+
