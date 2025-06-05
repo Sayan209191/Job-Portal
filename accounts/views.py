@@ -1,4 +1,5 @@
-from datetime import timedelta
+from datetime import datetime, timedelta
+import json
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -14,7 +15,7 @@ from django.conf import settings
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.views.generic import View
 from .forms import UserProfileForm
-from .models import UserProfile, WorkExperience, Education, SavedJob, Project, Certificate, AcievementCertificate, AppliedJob, SocialMediaAccount
+from .models import UserProfile, WorkExperience, Education, SavedJob, Project, Certificate, AcievementCertificate, AppliedJob, SocialMediaAccount, LoginActivity
 from django.utils.timezone import now
 from .models import AppliedJob
 from collections import defaultdict
@@ -177,34 +178,31 @@ class SetNewPasswordView(View):
 # View Profile
 @login_required
 def profile_view(request):
-    
     user_profile, created = UserProfile.objects.get_or_create(user=request.user)
-    
+
     user = get_object_or_404(User, id=user_profile.user_id)
     profile = UserProfile.objects.filter(user=user).first()
-    work_experiences = WorkExperience.objects.filter(user=user)
-    educations = Education.objects.filter(user=user)
-    saved_jobs = SavedJob.objects.filter(user=user)
-    projects = Project.objects.filter(user=user)
-    certificates = Certificate.objects.filter(user=user)
-    achievements = AcievementCertificate.objects.filter(user=user)
-    applied_jobs = AppliedJob.objects.filter(user=user)
-    social_accounts = SocialMediaAccount.objects.filter(user=user).first()
     
+    # Split skills before sending to template
+    if profile and profile.skills:
+        profile.skills = [skill.strip() for skill in profile.skills.split(',') if skill.strip()]
+
     context = {
         'user': user,
         'profile': profile,
-        'work_experiences': work_experiences,
-        'educations': educations,
-        'saved_jobs': saved_jobs,
-        'projects': projects,
-        'certificates': certificates,
-        'achievements': achievements,
-        'applied_jobs': applied_jobs,
-        'social_accounts': social_accounts,
+        'work_experiences': WorkExperience.objects.filter(user=user),
+        'educations': Education.objects.filter(user=user),
+        'saved_jobs': SavedJob.objects.filter(user=user),
+        'projects': Project.objects.filter(user=user),
+        'certificates': Certificate.objects.filter(user=user),
+        'achievements': AcievementCertificate.objects.filter(user=user),
+        'applied_jobs': AppliedJob.objects.filter(user=user),
+        'social_accounts': SocialMediaAccount.objects.filter(user=user).first(),
     }
-    user_profile.skills = user_profile.skills.split(',')
-    return render(request, 'account/profile-view.html', {'user_profile': user_profile})
+    context['activity_data'] = json.dumps(get_login_streak_data(request.user))
+
+    return render(request, 'account/profile-view.html', context)
+
     # return render(request, 'account/profile-view.html')
 
 # Edit Profile
@@ -222,26 +220,28 @@ def profile_edit(request):
     # return render(request, 'account/edit-profile.html', {'form': form})
     return render(request, 'account/edit-profile.html')
 
-# def get_user_activity_data(user):
-#     today = now().date()
-#     start_date = today - timedelta(days=365)
-#     activity_map = defaultdict(int)
 
-#     # Fetch applied job dates
-#     applied_jobs = AppliedJob.objects.filter(user=user, savedTime__date__gte=start_date)
+def get_login_streak_data(user):
+    today = datetime.today().date()
+    start_date = today - timedelta(days=364)
 
-#     for app in applied_jobs:
-#         day = app.savedTime.date()
-#         activity_map[day] += 1
+    # Count logins per day
+    raw_logins = LoginActivity.objects.filter(
+        user=user,
+        login_time__date__gte=start_date
+    )
 
-#     # Create a full year of days
-#     result = []
-#     for i in range(366):
-#         day = start_date + timedelta(days=i)
-#         count = activity_map.get(day, 0)
-#         result.append({
-#             'date': day.strftime('%Y-%m-%d'),
-#             'count': count
-#         })
+    login_counts = defaultdict(int)
+    for log in raw_logins:
+        login_counts[log.login_time.date()] += 1
 
-#     return result
+    # Return list of dicts for last 365 days
+    result = []
+    for i in range(365):
+        date = start_date + timedelta(days=i)
+        result.append({
+            "date": date.isoformat(),
+            "count": login_counts[date]
+        })
+
+    return result
