@@ -15,8 +15,8 @@
   <div class="container">
     <aside class="sidebar">
       <div class="profile-summary">
-        <div class="avatar">C</div>
-        <div class="email">chayansamanta64@gmail.com</div>
+        <div class="avatar">{{ user_profile.name|slice:":1" }}</div>
+        <div class="email">{{ user_profile.name }}</div>
         <a href="#" class="add-responsibility">Add Responsibility</a>
       </div>
       <nav>
@@ -34,7 +34,7 @@
         <ul>
           <li>Account Settings</li>
         </ul>
-        <button class="logout-btn">Logout</button>
+        <a href="{% url 'logout'%}"><button class="logout-btn">Logout</button></a>
       </div>
     </aside>
 
@@ -42,16 +42,16 @@
       <div class="cover-header"></div>
       <section class="profile-info">
         <div class="profile-header">
-          <div class="avatar-large">C</div>
+          <div class="avatar-large">{{ user_profile.name|slice:":1" }}</div>
           <div>
-            <h1>Chayan Samanta</h1>
-            <p>@chaysam3805</p>
+            <h1>{{user_profile.name}}</h1>
+            <p>{{user_profile.username}}</p>
             <p>Brainware University</p>
-            <a href="#">Resume</a>
+            {% comment %} <a href="{{ user_profile.resume.url }}" target="_blank" class="btn view-resume-btn">View Resume</a> {% endcomment %}
           </div>
           <a href="{% url "profile_edit" %}"><button class="edit-profile">Edit Profile</button></a>
           {% comment %} <a href="{% url "profile_edit" %}"> </a> {% endcomment %}
-        </div>
+        </div>  
 
         <section class="about">
           <h2>About</h2>
@@ -60,12 +60,15 @@
 
         <section class="resume">
           <h2>Resume</h2>
-          <a href="#">Chayan Samanta-resume</a>
+          <a href="{{ user_profile.resume.url }}" target="_blank" class="btn view-resume-btn">View Resume</a>
         </section>
 
         <section class="skills">
           <h2>Skills</h2>
-          <span class="tag">Performance Management</span>
+          {% for skill in user_profile.skills %}
+            <span class="tag">{{ skill }}</span>
+          {% endfor %}
+          {% comment %} <input type="text" id="skills" value="{{ user_profile.skills }}" disabled> {% endcomment %}
         </section>
 
         <section class="work-exp">
@@ -126,16 +129,17 @@
 
         <section class="streaks">
           <h2>Streaks</h2>
-          <div class="calendar-placeholder" id="calendar"></div>
-          <p>Activity: <span class="legend"></span> <span class="legend mid"></span> <span class="legend high"></span></p>
-          <p>Current Streak: <strong>1 Days</strong> &nbsp;&nbsp; Max Streak: <strong>3 Days</strong></p>
+          <div id="calendar" class="calendar" data-activity='{{ activity_data|safe }}'></div>
+          <p>Activity: <span class="legend low"></span> <span class="legend mid"></span> <span class="legend high"></span></p>
+          <p>Current Streak: <strong id="current-streak">0 Days</strong> &nbsp;&nbsp; Max Streak: <strong id="max-streak">0 Days</strong></p>
         </section>
+
       </div>
     </main>
 
     <div class="right-panel">
       <div class="create-resume-box">
-        <button class="create-resume">📄 Create your Resume</button>
+        <a href="https://www.overleaf.com/"><button class="create-resume">📄 Create your Resume</button></a>
         <div class="profile-views">0 Profile Views</div>
         <div class="engagement-tip">
           🚀 Increase your profile Engagement by 3X by filling all the details

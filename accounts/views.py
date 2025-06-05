@@ -1,3 +1,4 @@
+from datetime import timedelta
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -13,61 +14,75 @@ from django.conf import settings
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.views.generic import View
 from .forms import UserProfileForm
-from .models import UserProfile
-
+from .models import UserProfile, WorkExperience, Education, SavedJob, Project, Certificate, AcievementCertificate, AppliedJob, SocialMediaAccount
+from django.utils.timezone import now
+from .models import AppliedJob
+from collections import defaultdict
 
 # sign up 
 def signup(request):
-    if request.method == "POST":
-        email = request.POST['email']
-        password = request.POST['pass1']
-        confirm_password = request.POST['pass2']
+    
+    try:
+        if request.method == "POST":
+            email = request.POST['email']
+            password = request.POST['pass1']
+            confirm_password = request.POST['pass2']
+            
+            if password != confirm_password:
+                messages.warning(request, "Passwords do not match")
+                return render(request, 'account/signup.html')                   
+            
+            try:
+                if User.objects.filter(email=email).exists():
+                    messages.info(request, "Email is already taken")
+                    return render(request, 'account/signup.html')
+            except Exception as identifier:
+                pass
+
+            user = User.objects.create_user(username=email, email=email, password=password)
+            user.is_active = True
+            user.save()
+
+            messages.success(request, "Sign up successful! You can now log in.")
+            return redirect('/auth/login')
+    except Exception as identifier:
+        pass
+    finally :  
+        return render(request, "account/signup.html")
         
-        if password != confirm_password:
-            messages.warning(request, "Passwords do not match")
-            return render(request, 'account/signup.html')                   
-        
-        try:
-            if User.objects.filter(email=email).exists():
-                messages.info(request, "Email is already taken")
-                return render(request, 'account/signup.html')
-        except Exception as identifier:
-            pass
 
-        user = User.objects.create_user(username=email, email=email, password=password)
-        user.is_active = True
-        user.save()
-
-        messages.success(request, "Sign up successful! You can now log in.")
-        return redirect('/auth/login')
-
-    return render(request, "account/signup.html")
+    
 
 
 # sign in
 def handlelogin(request):
-    if request.method == "POST":
-        username = request.POST['email']
-        password = request.POST['password']
+    try:
+        if request.method == "POST":
+            username = request.POST['email']
+            password = request.POST['password']
+            
+            # Debugging: Print the username and password to check the input
+            print(f"Attempting login with email: {username} and password: {password}")
+            
+            # Authenticate user with the given username and password
+            user = authenticate(username=username, password=password)
+
+            # Debugging: Print user object to check if authentication is successful
+            print(f"Authenticated user: {user}")
+
+            if user is not None:
+                login(request, user)
+                messages.success(request, "Login Successful")
+                return redirect('/')  # Redirect to the homepage
+            else:
+                messages.error(request, "Invalid Credentials")
+                return redirect('/auth/login')
+    except Exception as identifier:
         
-        # Debugging: Print the username and password to check the input
-        print(f"Attempting login with email: {username} and password: {password}")
-        
-        # Authenticate user with the given username and password
-        user = authenticate(username=username, password=password)
+        pass
+    finally : 
 
-        # Debugging: Print user object to check if authentication is successful
-        print(f"Authenticated user: {user}")
-
-        if user is not None:
-            login(request, user)
-            messages.success(request, "Login Successful")
-            return redirect('/')  # Redirect to the homepage
-        else:
-            messages.error(request, "Invalid Credentials")
-            return redirect('/auth/login')
-
-    return render(request, 'account/login.html')
+        return render(request, 'account/login.html')
 
 
 
@@ -162,9 +177,35 @@ class SetNewPasswordView(View):
 # View Profile
 @login_required
 def profile_view(request):
-    # user_profile, created = UserProfile.objects.get_or_create(user=request.user)
-    # return render(request, 'account/profile-view.html', {'user_profile': user_profile})
-    return render(request, 'account/profile-view.html')
+    
+    user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+    
+    user = get_object_or_404(User, id=user_profile.user_id)
+    profile = UserProfile.objects.filter(user=user).first()
+    work_experiences = WorkExperience.objects.filter(user=user)
+    educations = Education.objects.filter(user=user)
+    saved_jobs = SavedJob.objects.filter(user=user)
+    projects = Project.objects.filter(user=user)
+    certificates = Certificate.objects.filter(user=user)
+    achievements = AcievementCertificate.objects.filter(user=user)
+    applied_jobs = AppliedJob.objects.filter(user=user)
+    social_accounts = SocialMediaAccount.objects.filter(user=user).first()
+    
+    context = {
+        'user': user,
+        'profile': profile,
+        'work_experiences': work_experiences,
+        'educations': educations,
+        'saved_jobs': saved_jobs,
+        'projects': projects,
+        'certificates': certificates,
+        'achievements': achievements,
+        'applied_jobs': applied_jobs,
+        'social_accounts': social_accounts,
+    }
+    user_profile.skills = user_profile.skills.split(',')
+    return render(request, 'account/profile-view.html', {'user_profile': user_profile})
+    # return render(request, 'account/profile-view.html')
 
 # Edit Profile
 @login_required
@@ -180,3 +221,27 @@ def profile_edit(request):
 
     # return render(request, 'account/edit-profile.html', {'form': form})
     return render(request, 'account/edit-profile.html')
+
+# def get_user_activity_data(user):
+#     today = now().date()
+#     start_date = today - timedelta(days=365)
+#     activity_map = defaultdict(int)
+
+#     # Fetch applied job dates
+#     applied_jobs = AppliedJob.objects.filter(user=user, savedTime__date__gte=start_date)
+
+#     for app in applied_jobs:
+#         day = app.savedTime.date()
+#         activity_map[day] += 1
+
+#     # Create a full year of days
+#     result = []
+#     for i in range(366):
+#         day = start_date + timedelta(days=i)
+#         count = activity_map.get(day, 0)
+#         result.append({
+#             'date': day.strftime('%Y-%m-%d'),
+#             'count': count
+#         })
+
+#     return result

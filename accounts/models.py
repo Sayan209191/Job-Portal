@@ -27,7 +27,7 @@ class WorkExperience(models.Model):
     description = models.TextField() 
     joining = models.DateField()
     enddate = models.DateField(blank=True)
-    # totalExperience = enddate - joining
+    experience = models.TextField()
     
 class Education(models.Model):
     id = models.IntegerField(auto_created=True, primary_key=True)
