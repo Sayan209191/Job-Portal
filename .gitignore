@@ -2,3 +2,6 @@
 media/
 */migrations/*.py
 */migrations/*.pyc
+# Default ignored files
+/.idea
+
