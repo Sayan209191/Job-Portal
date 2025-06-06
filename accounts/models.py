@@ -22,11 +22,11 @@ class WorkExperience(models.Model):
     id = models.IntegerField(auto_created=True, primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     organization = models.CharField(max_length=200, blank=True, null=True)
-    postion = models.CharField(max_length=250, blank=True, null=True)
+    position = models.CharField(max_length=250, blank=True, null=True)
     skills =  models.TextField()
     description = models.TextField() 
     joining = models.DateField()
-    enddate = models.DateField(blank=True)
+    enddate = models.DateField(blank=True, null=True)
     experience = models.TextField()
     
 class Education(models.Model):

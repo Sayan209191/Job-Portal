@@ -190,7 +190,7 @@ def profile_view(request):
     context = {
         'user': user,
         'profile': profile,
-        'work_experiences': WorkExperience.objects.filter(user=user),
+        'work_experiences': WorkExperience.objects.filter(user=user).order_by('-id'),
         'educations': Education.objects.filter(user=user),
         'saved_jobs': SavedJob.objects.filter(user=user),
         'projects': Project.objects.filter(user=user),
@@ -223,9 +223,13 @@ def profile_edit(request):
 
 def get_login_streak_data(user):
     today = datetime.today().date()
-    start_date = today - timedelta(days=364)
+    
+    # GitHub streak calendars start on Sunday, so find last Sunday
+    days_since_sunday = today.weekday() + 1  # Monday=0, Sunday=6 → 7
+    last_sunday = today - timedelta(days=days_since_sunday % 7)
 
-    # Count logins per day
+    start_date = last_sunday - timedelta(weeks=52)  # 52 weeks to cover 1 year
+
     raw_logins = LoginActivity.objects.filter(
         user=user,
         login_time__date__gte=start_date
@@ -235,9 +239,8 @@ def get_login_streak_data(user):
     for log in raw_logins:
         login_counts[log.login_time.date()] += 1
 
-    # Return list of dicts for last 365 days
     result = []
-    for i in range(365):
+    for i in range(7 * 53):  # 53 weeks to include partial weeks
         date = start_date + timedelta(days=i)
         result.append({
             "date": date.isoformat(),

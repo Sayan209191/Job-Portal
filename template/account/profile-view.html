@@ -23,7 +23,16 @@
           <li>Registrations/Applications</li>
           <li>Save Job</li>
           <li>Recently Viewed</li>
-          <li>Certificates</li>
+          <li>
+            {% if certificates %}
+            {% if certificates.certificate %}
+                <a href="{{ certificates.certificate }}" target="_blank" class="btn view-resume-btn">Certificate</a>
+            {% endif %}
+          {% else %}
+              {% comment %} <a href="/add-resume" class="btn add-resume-btn">Add Resume</a> {% endcomment %}
+              Certificate
+          {% endif %}
+          </li>
           <li>Carrier Coins</li>
           <li>Settings</li>
         </ul>
@@ -45,7 +54,7 @@
           <div>
             <h1>{{profile.name}}</h1>
             <p>{{profile.username}}</p>
-            <p>Brainware University</p>
+            {% comment %} <p>Brainware University</p> {% endcomment %}
             {% comment %} <a href="{{ user_profile.resume.url }}" target="_blank" class="btn view-resume-btn">View Resume</a> {% endcomment %}
           </div>
           <a href="{% url "profile_edit" %}"><button class="edit-profile">Edit Profile</button></a>
@@ -78,6 +87,10 @@
 
         <section class="work-exp">
           <h2>Work Experience</h2>
+          {% comment %} Work Experience Field {% endcomment %}
+          {% for work in work_experiences %}
+              <span class="tag">{{ work.position }}</span>
+          {% endfor %}
           <a href="#">Add Work Experience</a>
         </section>
 
@@ -86,7 +99,7 @@
           <p><strong>Brainware University</strong></p>
           <p>Pursuing BTech in Computer Science and Engineering (2021 - Expected 2025)</p>
           <p>Specialization: Computer Science and Engineering</p>
-          <p>Percentage: 76% | CGPA: 8</p>
+          {% comment %} <p>Percentage: 76% | CGPA: 8</p> {% endcomment %}
         </section>
 
         <section class="responsibility">
@@ -96,15 +109,15 @@
 
         <section class="certificate">
           <h2>Certificate</h2>
-          <a href="#">Add Certificate</a>
+          <a href="#">Add Certificate</a> 
         </section>
-      </section>
+      
 
       <div class="middle-container">
         <section class="projects">
           <h2>Projects</h2>
           <div class="project-item">
-            <img src="project-icon.png" alt="Project Icon" />
+            {% comment %} <img src="project-icon.png" alt="Project Icon" /> {% endcomment %}
             <div>
               <strong>JOB PORTAL</strong>
               <p>#️⃣ Job Portal Project: Developed a comprehensive platform for job seekers and recruiters...</p>
@@ -134,12 +147,25 @@
 
         <section class="streaks">
           <h2>Streaks</h2>
-          <div id="calendar" class="calendar" data-activity='{{ activity_data|safe }}'></div>
-          <p>Activity: <span class="legend low"></span> <span class="legend mid"></span> <span class="legend high"></span></p>
+          
+          <div style="overflow-x: auto; max-width: 100%;">
+            <div class="month-labels" id="month-labels"></div>
+            <div id="calendar" class="calendar-grid" data-activity='{{ activity_data|safe }}'></div>
+          </div>
+
+          <p>Activity: 
+            <span class="legend" style="background-color: #c6e48b;"></span>
+            <span class="legend" style="background-color: #7bc96f;"></span>
+            <span class="legend" style="background-color: #239a3b;"></span>
+            <span class="legend" style="background-color: #196127;"></span>
+          </p>
+          
           <p>Current Streak: <strong id="current-streak">0 Days</strong> &nbsp;&nbsp; Max Streak: <strong id="max-streak">0 Days</strong></p>
         </section>
 
+
       </div>
+      </section>
     </main>
 
     <div class="right-panel">

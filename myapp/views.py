@@ -228,7 +228,7 @@ def search_suggestions(request):
             Q(title__icontains=query) | 
             Q(skills_required__icontains=query)
         ).distinct()[:10]  # Limit results to 10 suggestions
-        company = Company.objects.filter(name__icontains=query).order_by("name").first()
+        company = Company.objects.filter(name__icontains=query).order_by('name').first()
         if company:
             suggestions.append(company.name)
         if jobs:
