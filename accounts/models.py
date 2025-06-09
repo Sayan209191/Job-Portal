@@ -34,8 +34,9 @@ class Education(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE) 
     institude = models.CharField(max_length=250)
     course = models.CharField(max_length=300)
+    skills = models.TextField(blank=True, null=True);
     staringDate = models.DateField()
-    endingDate = models.DateField()
+    endingDate = models.DateField(null=True, blank=True)
     cgpa = models.CharField(max_length=10, blank=True, null=True)
     percentage = models.CharField(max_length=10, blank=True, null=True)
 
@@ -50,9 +51,9 @@ class Project(models.Model):
     id = models.IntegerField(auto_created=True, primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE) 
     title = models.CharField(max_length=250)
-    descrption = models.TextField()
+    description = models.TextField()
     project_url = models.URLField()
-    staring_date = models.DateTimeField()
+    starting_date = models.DateTimeField()
     end_date = models.DateTimeField(null=True, blank=True)
     
 class Certificate(models.Model):
@@ -61,7 +62,7 @@ class Certificate(models.Model):
 
 class AcievementCertificate(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    acievement = models.TextField()
+    achievement = models.TextField()
     
 class AppliedJob(models.Model):
     id = models.IntegerField(auto_created=True, primary_key=True)

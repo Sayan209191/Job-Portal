@@ -21,8 +21,8 @@
       <nav>
         <ul>
           <li>Registrations/Applications</li>
-          <li>Save Job</li>
-          <li>Recently Viewed</li>
+          <li>Saved Job</li>
+          {% comment %} <li>Recently Viewed</li> {% endcomment %}
           <li>
             {% if certificates %}
             {% if certificates.certificate %}
@@ -63,7 +63,7 @@
 
         <section class="about">
           <h2>About</h2>
-          <p> </p>
+          <p> {{profile.about}}</p>
         </section>
 
         <section class="resume">
@@ -87,25 +87,66 @@
 
         <section class="work-exp">
           <h2>Work Experience</h2>
-          {% comment %} Work Experience Field {% endcomment %}
           {% for work in work_experiences %}
-              <span class="tag">{{ work.position }}</span>
+            <div class="work-entry">
+              <div class="position">{{ work.position }}</div>
+              <div class="company-dates">
+                <span class="company">{{ work.organization }}</span>
+                <span class="dates">
+                  {{ work.joining|date:"F Y" }} -
+                  {% if work.enddate %}
+                    {{ work.enddate|date:"F Y" }}
+                  {% else %}
+                    Present
+                  {% endif %}
+                </span>
+              </div>
+              <div class="description">{{ work.description }}</div>
+            </div>
           {% endfor %}
           <a href="#">Add Work Experience</a>
         </section>
 
+
         <section class="education">
           <h2>Education</h2>
-          <p><strong>Brainware University</strong></p>
-          <p>Pursuing BTech in Computer Science and Engineering (2021 - Expected 2025)</p>
-          <p>Specialization: Computer Science and Engineering</p>
-          {% comment %} <p>Percentage: 76% | CGPA: 8</p> {% endcomment %}
+          {% for education in educations %}
+            <div class="education-entry">
+              <div class="course">{{ education.course }}</div>
+
+              <div class="institute-details">
+                <span class="institute">{{ education.institude }}</span>
+                <span class="dates">
+                  {{ education.staringDate|date:"F Y" }} -
+                  {% if education.endingDate %}
+                    {{ education.endingDate|date:"F Y" }}
+                  {% else %}
+                    Present
+                  {% endif %}
+                </span>
+              </div>
+
+              <div class="score">
+                {% if education.percentage %}
+                  {{ education.percentage }}%
+                {% elif education.cgpa %}
+                  CGPA: {{ education.cgpa }}
+                {% endif %}
+              </div>
+
+              {% if education.skills %}
+                <div class="edu-skills">
+                  <strong>Skills:</strong> {{ education.skills }}
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+           <a href="#">Add Education</a>
         </section>
 
-        <section class="responsibility">
-          <h2>Responsibilities</h2>
-          <a href="#">Add Responsibility</a>
-        </section>
+
+
+        
 
         <section class="certificate">
           <h2>Certificate</h2>
@@ -127,7 +168,7 @@
 
         <section class="achievements">
           <h2>Achievements</h2>
-          <p>Broadcast your triumphs and make a remarkable impression on industry leaders!</p>
+          <p></p>
           <a href="#">Add Achievement</a>
         </section>
 

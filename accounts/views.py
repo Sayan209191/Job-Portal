@@ -191,7 +191,7 @@ def profile_view(request):
         'user': user,
         'profile': profile,
         'work_experiences': WorkExperience.objects.filter(user=user).order_by('-id'),
-        'educations': Education.objects.filter(user=user),
+        'educations': Education.objects.filter(user=user).order_by('-id'),
         'saved_jobs': SavedJob.objects.filter(user=user),
         'projects': Project.objects.filter(user=user),
         'certificates': Certificate.objects.filter(user=user),
