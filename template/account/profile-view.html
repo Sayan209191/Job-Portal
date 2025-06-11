@@ -5,8 +5,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  {% comment %} <title>{{ user_profile.name }}'s Profile</title> {% endcomment %}
+  <link rel="shortcut icon" href="{% static 'favicon/favicon.png' %}" type="image/png">
+  <title>{{ profile.name }}'s Profile</title>
   <link rel="stylesheet" href="{% static 'style/accounts/profile.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script src="{% static 'js/account/script.js' %}"></script> 
 </head>
 
@@ -16,10 +18,10 @@
       <div class="profile-summary">
         <div class="avatar">{{ profile.name|slice:":1" }}</div>
         <div class="email">{{ profile.name }}</div>
-        <a href="#" class="add-responsibility">Add Responsibility</a>
+        {% comment %} <a href="#" class="add-responsibility">Add Responsibility</a> {% endcomment %}
       </div>
       <nav>
-        <ul>
+        <ul class="navitems">
           <li>Registrations/Applications</li>
           <li>Saved Job</li>
           {% comment %} <li>Recently Viewed</li> {% endcomment %}
@@ -29,11 +31,20 @@
                 <a href="{{ certificates.certificate }}" target="_blank" class="btn view-resume-btn">Certificate</a>
             {% endif %}
           {% else %}
-              {% comment %} <a href="/add-resume" class="btn add-resume-btn">Add Resume</a> {% endcomment %}
-              Certificate
+              <a href="#" class="btn add-resume-btn">Add Certificates</a>
+              
           {% endif %}
           </li>
-          <li>Carrier Coins</li>
+          <li>
+              {% if profile %}
+                  {% if profile.resume %}
+                      <a href="{{ profile.resume.url }}" target="_blank" class="btn view-resume-btn">View Resume</a>
+                  {% endif %}
+                {% else %}
+                    <a href="#" class="btn add-resume-btn">Add Resume</a>
+                {% endif %}
+          </li>
+          {% comment %} <li>Carrier Coins</li> {% endcomment %}
           <li>Settings</li>
         </ul>
       </nav>
@@ -66,16 +77,16 @@
           <p> {{profile.about}}</p>
         </section>
 
-        <section class="resume">
+        {% comment %} <section class="resume">
           <h2>Resume</h2>
           {% if profile %}
             {% if profile.resume %}
                 <a href="{{ profile.resume.url }}" target="_blank" class="btn view-resume-btn">View Resume</a>
             {% endif %}
-          {% else %}
+          {% else %} {% endcomment %}
               {% comment %} <a href="/add-resume" class="btn add-resume-btn">Add Resume</a> {% endcomment %}
-          {% endif %}
-        </section>
+          {% comment %} {% endif %}
+        </section> {% endcomment %}
 
         <section class="skills">
           <h2>Skills</h2>
@@ -104,7 +115,7 @@
               <div class="description">{{ work.description }}</div>
             </div>
           {% endfor %}
-          <a href="#">Add Work Experience</a>
+          <a href="#"><button class="edit-profile">Add Work Experience</button></a>
         </section>
 
 
@@ -141,50 +152,103 @@
               {% endif %}
             </div>
           {% endfor %}
-           <a href="#">Add Education</a>
+           <a href="#"><button class="edit-profile">Add Education</button></a>
         </section>
 
 
 
         
 
-        <section class="certificate">
+        {% comment %} <section class="certificate">
           <h2>Certificate</h2>
           <a href="#">Add Certificate</a> 
-        </section>
+        </section> {% endcomment %}
       
 
       <div class="middle-container">
         <section class="projects">
           <h2>Projects</h2>
-          <div class="project-item">
-            {% comment %} <img src="project-icon.png" alt="Project Icon" /> {% endcomment %}
-            <div>
-              <strong>JOB PORTAL</strong>
-              <p>#️⃣ Job Portal Project: Developed a comprehensive platform for job seekers and recruiters...</p>
+          {% for project in projects %}
+            <div class="project-entry">
+              <div class="project-header">
+                <span class="project-title">{{ project.title }}</span>
+                <span class="project-dates">
+                  {{ project.starting_date|date:"F Y" }} -
+                  {% if project.end_date %}
+                    {{ project.end_date|date:"F Y" }}
+                  {% else %}
+                    Present
+                  {% endif %}
+                </span>
+              </div>
+
+              <div class="project-description">
+                {{ project.description }}
+              </div>
+
+              {% if project.project_url %}
+                <div class="project-link">
+                  <a href="{{ project.project_url }}" target="_blank" rel="noopener">🔗 Check it out</a>
+                </div>
+              {% endif %}
             </div>
-          </div>
+          {% endfor %}
+          <a href="#"><button class="edit-profile">Add Projects</button></a>
         </section>
+
+
 
         <section class="achievements">
           <h2>Achievements</h2>
-          <p></p>
-          <a href="#">Add Achievement</a>
+          {% if achievements %}
+            <ul class="achievement-list">
+              {% for item in achievements %}
+                <li class="achievement-item">{{ item.achievement }}</li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p>No achievements added yet.</p>
+          {% endif %}
+          <a href="#"><button class="edit-profile">Add Achievement</button></a>
         </section>
 
-        <section class="personal-details">
+
+        {% comment %} <section class="personal-details">
           <h2>Personal Details</h2>
           <p>-- Edit your personal info here --</p>
-        </section>
+        </section> {% endcomment %}
 
         <section class="social-links">
           <h2>Social Links</h2>
-          <div class="icons">
-            <i class="fab fa-facebook-f"></i>
-            <i class="fab fa-instagram"></i>
-            <i class="fab fa-linkedin-in"></i>
+          <div class="social-icons">
+            {% if social_accounts.linkedin %}
+              <a href="{{ social_accounts.linkedin }}" target="_blank" class="linkedin" title="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            {% endif %}
+            {% if social_accounts.twitter %}
+              <a href="{{ social_accounts.twitter }}" target="_blank" class="twitter" title="Twitter">
+                <i class="fab fa-x-twitter"></i>
+              </a>
+            {% endif %}
+            {% if social_accounts.facebook %}
+              <a href="{{ social_accounts.facebook }}" target="_blank" class="facebook" title="Facebook">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+            {% endif %}
+            {% if social_accounts.instagram %}
+              <a href="{{ social_accounts.instagram }}" target="_blank" class="instagram" title="Instagram">
+                <i class="fab fa-instagram"></i>
+              </a>
+            {% endif %}
+            {% if social_accounts.github %}
+              <a href="{{ social_accounts.github }}" target="_blank" class="github" title="GitHub">
+                <i class="fab fa-github"></i>
+              </a>
+            {% endif %}
           </div>
         </section>
+
 
         <section class="streaks">
           <h2>Streaks</h2>

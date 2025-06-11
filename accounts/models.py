@@ -58,6 +58,7 @@ class Project(models.Model):
     
 class Certificate(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    description = models.TextField(null=True, blank=True)
     certificate = models.FileField(upload_to='account/Certicates/', blank=True, null=True)
 
 class AcievementCertificate(models.Model):

@@ -10,7 +10,7 @@
 <body>
     <div class="container">
         <!-- Sidebar -->
-        <div class="sidebar">
+        <div class="sidebar-edit">
             <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="/auth/profile">Profile</a></li>
@@ -29,6 +29,12 @@
                     <label for="name">Name:</label>
                     <input type="text" id="name" name="name" value="{{ form.name.value }}" required>
                     <small class="error">{{ form.name.errors }}</small>
+                </div>
+                <!-- About Field -->
+                <div class="form-group">
+                    <label for="about">About:</label>
+                    <input type="text" id="about" name="about" value="{{ form.about.value }}" required>
+                    <small class="error">{{ form.about.errors }}</small>
                 </div>
                 <!-- Address Field -->
                 <div class="form-group">
