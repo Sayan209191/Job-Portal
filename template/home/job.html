@@ -5,12 +5,12 @@
     
     <div class="grid-item">
       <div class="job-card">
-        <div class="card" style="background: linear-gradient(135deg, #6A5ACD, #9370DB);">
+        <div class="card" style="background: linear-gradient(135deg,rgb(90, 90, 92),rgb(197, 197, 200));">
           <div class="card-header">
               <span class="tag">{{job.location}}</span>
               {% comment %} <img src="g4s_logo.png" alt="G4S"> {% endcomment %}
           </div>
-          <div class="card-content">
+          <div class="card-content" >
             <a href="{% url 'job_detail' job.id %}"><h3>{{ job.title }}</h3></a>
             <a href="{% url 'company_overview' job.company.id %}"><p>{{ job.company.name }}</p></a>
               <div class="meta">

@@ -329,9 +329,9 @@ nav ul li:hover .dropdown-content {
 :root {
     --primary-color: #007bff;
     --primary-hover: #0056b3;
-    --secondary-color: #28a745;
-    --secondary-hover: #218838;
-    --secondary-active: #1e7e34;
+    --secondary-color: #0b3b9a;
+    --secondary-hover: #2029df;
+    --secondary-active: #10537a;
     --background-color: #f4f6f8;
     --card-background: #ffffff;
     --card-border: #e0e0e0;
