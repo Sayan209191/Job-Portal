@@ -4,4 +4,4 @@ media/
 */migrations/*.pyc
 # Default ignored files
 /.idea
-
+.env

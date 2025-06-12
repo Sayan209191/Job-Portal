@@ -1,6 +1,7 @@
 from pathlib import Path
 import os
 import pymysql
+from decouple import config
 
 pymysql.version_info = (1,4,6,'final',0) 
 pymysql.install_as_MySQLdb()
@@ -36,13 +37,21 @@ LOGGING = {
 }
 
 
-EMAIL_HOST='smtp.gmail.com'
-EMAIL_HOST_USER='makeyourcareer.helpdesk@gmail.com'
-EMAIL_HOST_PASSWORD='ljes rvru vmdn waor'
-EMAIL_PORT=587
-EMAIL_USE_TLS=True
-EMAIL_USE_SSL = False  
-EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')  
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+
+# EMAIL_HOST='smtp.gmail.com'
+# EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+# EMAIL_PORT=587
+# EMAIL_USE_TLS=True
+# EMAIL_USE_SSL = False  
+# EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
 
 ALLOWED_HOSTS = []
 
