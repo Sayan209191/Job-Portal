@@ -19,7 +19,7 @@ class UserProfile(models.Model):
         return f"{self.user.username}'s Profile"
     
 class WorkExperience(models.Model):
-    id = models.IntegerField(auto_created=True, primary_key=True)
+    # id = models.IntegerField(auto_created=True, primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     organization = models.CharField(max_length=200, blank=True, null=True)
     position = models.CharField(max_length=250, blank=True, null=True)
@@ -30,7 +30,7 @@ class WorkExperience(models.Model):
     experience = models.TextField()
     
 class Education(models.Model):
-    id = models.IntegerField(auto_created=True, primary_key=True)
+    # id = models.IntegerField(auto_created=True, primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE) 
     institude = models.CharField(max_length=250)
     course = models.CharField(max_length=300)
@@ -42,13 +42,13 @@ class Education(models.Model):
 
 
 class SavedJob(models.Model):
-    id = models.IntegerField(auto_created=True, primary_key=True)
+    # id = models.IntegerField(auto_created=True, primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    job_id = models.ForeignKey(Job, on_delete=models.CASCADE)
+    job = models.ForeignKey(Job, on_delete=models.CASCADE)
     
     
 class Project(models.Model):
-    id = models.IntegerField(auto_created=True, primary_key=True)
+    # id = models.IntegerField(auto_created=True, primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE) 
     title = models.CharField(max_length=250)
     description = models.TextField()
@@ -66,7 +66,7 @@ class AcievementCertificate(models.Model):
     achievement = models.TextField()
     
 class AppliedJob(models.Model):
-    id = models.IntegerField(auto_created=True, primary_key=True)
+    # id = models.IntegerField(auto_created=True, primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     job_id = models.ForeignKey(Job, on_delete=models.CASCADE)
     savedTime = datetime.now(timezone.utc) 

@@ -2,12 +2,17 @@ from datetime import date
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.core.paginator import Paginator
+
+from accounts.models import UserProfile, SavedJob
 from jobs.models import Company, Job 
 from django.db.models import Q
 from django.core.mail import send_mail
 from .models import ContactMessage
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt 
+from django.contrib.auth.decorators import login_required
+
+
 def index(request):
     # # Fetch the search query from the request
     # query = request.GET.get('q', '').strip()   
@@ -51,6 +56,25 @@ def index(request):
     
    
     return render(request, 'home/index.html', context)
+@login_required
+def save_or_unsave_job(request, job_id):
+    user = request.user
+    job = get_object_or_404(Job, id=job_id)
+
+    saved_job = SavedJob.objects.filter(user=user, job=job).first()
+    is_saved = False
+
+    if saved_job:
+        saved_job.delete()
+    else:
+        SavedJob.objects.create(user=user, job=job)
+        is_saved = True
+
+    return render(request, 'home/jobdescription.html', {
+        'job': job,
+        'is_saved': is_saved
+    })
+
 
 def search_results(request):
     query = request.GET.get('q', '').strip() 

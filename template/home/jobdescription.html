@@ -64,6 +64,16 @@
             {% comment %} <a href="{{ job.application_link }}" class="apply-btn" id="applyBtn" data-job-id="{{ job.id }}"><button>Quick Apply</button>
 </a>
             <br/> {% endcomment %}
+            <form action="{% url 'save_or_unsave_job' job.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="apply-btn">
+                    {% if is_saved %}
+                        Unsave
+                    {% else %}
+                        🔖 Save Job
+                    {% endif %}
+                </button>
+            </form>
             <p><strong>Eligibility:</strong> {{job.experience_required}}</p>
            
         </div>
