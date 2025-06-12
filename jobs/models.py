@@ -8,7 +8,7 @@ class Company(models.Model) :
     description = models.TextField()
     location = models.CharField(max_length=255)
     website = models.URLField(blank=True, null=True)
-    mobile_number = models.CharField(max_length=15, blank=True, null=True)
+    mobile_number = models.TextField(null=True, blank=True)
     email_address = models.EmailField(blank=True, null=True)
     logo_url = models.URLField(blank=True, null=True)
     linkedin_url = models.URLField(blank=True, null=True)

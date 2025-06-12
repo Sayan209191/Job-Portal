@@ -9,7 +9,7 @@ django.setup()
 from jobs.models import Company
 
 # Path to your Excel file
-excel_file = r"D:\Job Portal\CompanyName.xlsx"
+excel_file = r"D:\Job Portal\CompanyInfo.xlsx"
 
 # Read the Excel file
 data = pd.read_excel(excel_file)
@@ -20,13 +20,19 @@ failed = 0
 # Iterate through each row in the Excel file
 for index, row in data.iterrows():
     try:
-        # Create a new Company object and populate fields
+        
         company = Company(
             name=row['Name'],  
             description=row['Description'],  
             location=row['Location'],  
             website=row.get('Website', None),  
-            mobile_number=row.get('Mobile Number', None)  
+            mobile_number=row.get('Mobile Number', None),
+            email_address=row.get('Email', None) ,
+            logo_url = row.get('logo_url', None),
+            linkedin_url = row.get('linkedin_url', None),
+            facebook_url = row . get('facebook_url', None),
+            twitter_url = row.get('twitter_url', None),
+            instagram_url = row.get('instagram_url', None)
         )
         company.save()
         successful += 1

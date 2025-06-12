@@ -9,7 +9,7 @@ django.setup()
 
 from jobs.models import Job, Company
 
-excel_file = r"D:\Job Portal\NewJobDataPart2.xlsx"
+excel_file = r"D:\Job Portal\jobinfo.xlsx"
 data = pd.read_excel(excel_file)
 data['date_posted'] = pd.to_datetime(data['date_posted'], dayfirst=True, errors='coerce').dt.strftime('%Y-%m-%d')
 successful = 0  
