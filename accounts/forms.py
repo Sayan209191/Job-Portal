@@ -4,7 +4,7 @@ from .models import UserProfile
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ['name', 'address', 'skills', 'resume', 'profile_picture', 'mobile_number', 'about']
+        fields = ['name', 'address', 'skills', 'resume', 'profile_picture', 'mobile_number', 'about', 'username']
 
     def clean_resume(self):
         resume = self.cleaned_data.get('resume', False)

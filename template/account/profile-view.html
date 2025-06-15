@@ -25,16 +25,28 @@
           <li>Registrations/Applications</li>
           <li>Saved Job</li>
           {% comment %} <li>Recently Viewed</li> {% endcomment %}
-          <li>
+          <li class="dropdown">
             {% if certificates %}
-            {% if certificates.certificate %}
-                <a href="{{ certificates.certificate }}" target="_blank" class="btn view-resume-btn">Certificate</a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: blue; text-decoration: none;">
+                Certificates <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                {% for certificate in certificates %}
+                  {% if certificate.certificate %}
+                    <li>
+                      <a href="{{ certificate.certificate.url }}" target="_blank">
+                        {{certificate.description}}
+                      </a>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            {% else %}
+              <a href="#" class="btn add-certificate-btn">Add Certificates</a>
             {% endif %}
-          {% else %}
-              <a href="#" class="btn add-resume-btn">Add Certificates</a>
-              
-          {% endif %}
           </li>
+
+
           <li>
               {% if profile %}
                   {% if profile.resume %}
@@ -159,10 +171,10 @@
 
         
 
-        {% comment %} <section class="certificate">
+        <section class="certificate">
           <h2>Certificate</h2>
           <a href="#">Add Certificate</a> 
-        </section> {% endcomment %}
+        </section>
       
 
       <div class="middle-container">
@@ -276,7 +288,7 @@
     <div class="right-panel">
       <div class="create-resume-box">
         <a href="https://www.overleaf.com/"><button class="create-resume">📄 Create your Resume</button></a>
-        <div class="profile-views">0 Profile Views</div>
+        <div class="profile-views">{{profile.profile_views}} Profile Views</div>
         <div class="engagement-tip">
           🚀 Increase your profile Engagement by 3X by filling all the details
         </div>
