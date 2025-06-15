@@ -14,7 +14,7 @@ from django.core.mail import EmailMessage
 from django.conf import settings
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.views.generic import View
-from .forms import UserProfileForm
+from .forms import UserProfileForm, EducationForm, WorkExperienceForm
 from .models import UserProfile, WorkExperience, Education, SavedJob, Project, Certificate, AcievementCertificate, AppliedJob, SocialMediaAccount, LoginActivity
 from django.utils.timezone import now
 from .models import AppliedJob
@@ -248,3 +248,59 @@ def get_login_streak_data(user):
         })
 
     return result
+
+
+@login_required
+def add_education(request):
+    if request.method == 'POST':
+        form = EducationForm(request.POST)
+        if form.is_valid():
+            edu = form.save(commit=False)
+            edu.user = request.user
+            edu.save()
+            messages.success(request, 'Education added successfully!')
+            return redirect('profile')
+    else:
+        form = EducationForm()
+    return render(request, 'account/add_education.html', {'form': form})
+
+@login_required
+def edit_education(request, pk):
+    edu = get_object_or_404(Education, pk=pk, user=request.user)
+    if request.method == 'POST':
+        form = EducationForm(request.POST, instance=edu)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Education updated successfully!')
+            return redirect('profile')
+    else:
+        form = EducationForm(instance=edu)
+    return render(request, 'account/edit_education.html', {'form': form})
+
+
+@login_required
+def add_work_experience(request):
+    if request.method == 'POST':
+        form = WorkExperienceForm(request.POST)
+        if form.is_valid():
+            exp = form.save(commit=False)
+            exp.user = request.user
+            exp.save()
+            messages.success(request, 'Work experience added successfully!')
+            return redirect('profile')
+    else:
+        form = WorkExperienceForm()
+    return render(request, 'account/add_work.html', {'form': form})
+
+@login_required
+def edit_work_experience(request, pk):
+    exp = get_object_or_404(WorkExperience, pk=pk, user=request.user)
+    if request.method == 'POST':
+        form = WorkExperienceForm(request.POST, instance=exp)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Work experience updated successfully!')
+            return redirect('profile')
+    else:
+        form = WorkExperienceForm(instance=exp)
+    return render(request, 'account/edit_work.html', {'form': form})

@@ -127,7 +127,7 @@
               <div class="description">{{ work.description }}</div>
             </div>
           {% endfor %}
-          <a href="#"><button class="edit-profile">Add Work Experience</button></a>
+          <a href="{% url 'add_work_experience' %}"><button class="edit-profile">Add Work Experience</button></a>
         </section>
 
 
@@ -164,7 +164,7 @@
               {% endif %}
             </div>
           {% endfor %}
-           <a href="#"><button class="edit-profile">Add Education</button></a>
+           <a href="{% url 'add_education' %}"><button class="edit-profile">Add Education</button></a>
         </section>
 
 
